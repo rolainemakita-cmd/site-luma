@@ -12,8 +12,6 @@
 </head>
 <body>
 
-  <div class="draft-banner" role="note">Brouillon v1 · textes, prix et dates à valider</div>
-
   <header class="nav" id="top">
     <a href="#top" class="logo" aria-label="Luma, accueil">Luma<span class="logo-dot"></span></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">
@@ -25,7 +23,7 @@
       <a href="#agenda">Agenda</a>
       <a href="#rolaine">Qui suis-je</a>
       <a href="#contact">Contact</a>
-      <a href="#agenda" class="btn btn-small btn-glow">Réserver</a>
+      <a href="#agenda" class="btn btn-small btn-glow">Prochaines dates</a>
     </nav>
   </header>
 
@@ -114,25 +112,25 @@
           <article class="offer reveal">
             <p class="offer-tag">Le rendez-vous</p>
             <h3>Atelier Luma</h3>
-            <p class="price">40 €<span> / 2 h</span></p>
+            <p class="price price-soon">Bientôt<span> / 2 h</span></p>
             <ul>
               <li>8 à 10 participantes maximum</li>
               <li>Tous niveaux</li>
               <li>Thé et cercle de clôture inclus</li>
             </ul>
-            <a href="#agenda" class="btn btn-dark">Réserver ma place</a>
+            <a href="#agenda" class="btn btn-dark">Prochaines dates</a>
           </article>
 
           <article class="offer offer-featured reveal">
             <p class="offer-tag">Le plus choisi</p>
             <h3>Cercle Luma</h3>
-            <p class="price">140 €<span> / 4 ateliers</span></p>
+            <p class="price price-soon">Bientôt<span> / 4 ateliers</span></p>
             <ul>
-              <li>Soit 35 € l'atelier</li>
+              <li>Tarif préférentiel</li>
               <li>Valable 3 mois</li>
               <li>Priorité sur les stages et retraites</li>
             </ul>
-            <a href="#contact" class="btn btn-glow">Rejoindre le cercle</a>
+            <a href="#agenda" class="btn btn-glow">Prochaines dates</a>
           </article>
 
           <article class="offer reveal">
@@ -166,7 +164,6 @@
             <h3>Stages et retraites Luma</h3>
             <p>Un week-end hors du temps : pilates, danse, mouvement et nature. Les places seront limitées et proposées d'abord aux membres du Cercle.</p>
           </div>
-          <a href="#contact" class="btn btn-ghost-dark">Rejoindre la liste d'attente</a>
         </div>
       </div>
     </section>
@@ -178,74 +175,26 @@
         <h2 class="reveal">Les prochaines <em>dates</em>.</h2>
         <p class="lead reveal">Les places sont limitées et se réservent à l'avance. Annulation gratuite jusqu'à 48 h avant l'atelier.</p>
 
-        <ul class="dates">
-          <li class="date reveal">
-            <div class="date-day"><span>Dim.</span><strong>08</strong><span>nov.</span></div>
-            <div class="date-info"><h3>Atelier Luma · Afro et respiration</h3><p>14 h - 16 h · Clichy</p></div>
-            <span class="seats">3 places</span>
-            <a href="#contact" class="btn btn-small btn-dark">Réserver</a>
-          </li>
-          <li class="date reveal">
-            <div class="date-day"><span>Dim.</span><strong>22</strong><span>nov.</span></div>
-            <div class="date-info"><h3>Atelier Luma · Street jazz en talons</h3><p>14 h - 16 h · Clichy</p></div>
-            <span class="seats">6 places</span>
-            <a href="#contact" class="btn btn-small btn-dark">Réserver</a>
-          </li>
-          <li class="date reveal">
-            <div class="date-day"><span>Dim.</span><strong>06</strong><span>déc.</span></div>
-            <div class="date-info"><h3>Atelier Luma · Dancehall et lâcher-prise</h3><p>14 h - 16 h · Clichy</p></div>
-            <span class="seats seats-full">Liste d'attente</span>
-            <a href="#contact" class="btn btn-small btn-ghost-dark">M'inscrire</a>
-          </li>
-        </ul>
-        <p class="note">Dates d'exemple. La réservation en ligne avec paiement sera branchée à l'étape suivante.</p>
+        <div class="soon reveal">
+          <span class="soon-dot" aria-hidden="true"></span>
+          <div>
+            <h3>Les prochaines dates arrivent bientôt.</h3>
+            <p>Les ateliers reprennent très prochainement, en petit comité. Reviens vite pour découvrir le calendrier.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ROLAINE -->
     <section class="section section-dark" id="rolaine">
       <div class="container split split-about">
-        <div class="portrait reveal" role="img" aria-label="Emplacement pour une photo de Rolaine">
-          <span>Ta photo ici</span>
-        </div>
+        <div class="portrait reveal" aria-hidden="true"></div>
         <div>
           <p class="eyebrow reveal">Qui suis-je</p>
           <h2 class="reveal">Le jour, la finance.<br>Le soir, <em>la danse</em>.</h2>
           <p class="lead lead-light reveal">Je m'appelle Rolaine. Je travaille dans la finance, et depuis des années, la danse est l'endroit où je me retrouve : street jazz, danse commerciale, afro, dancehall.</p>
           <p class="lead lead-light reveal">J'ai créé Luma pour offrir aux femmes ce que la danse m'a donné : un moment pour soi, de la confiance et de la lumière. Luma est né entre ces deux vies.</p>
-          <a href="#contact" class="btn btn-glow reveal">M'écrire</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- TEMOIGNAGES -->
-    <section class="section section-light">
-      <div class="container">
-        <p class="eyebrow eyebrow-dark reveal">Elles en parlent</p>
-        <h2 class="reveal">Ce qu'elles <em>ressentent</em>.</h2>
-        <div class="quotes">
-          <figure class="quote quote-empty reveal"><blockquote>Emplacement pour un vrai témoignage de participante.</blockquote><figcaption>Prénom · à compléter</figcaption></figure>
-          <figure class="quote quote-empty reveal"><blockquote>Emplacement pour un vrai témoignage de participante.</blockquote><figcaption>Prénom · à compléter</figcaption></figure>
-          <figure class="quote quote-empty reveal"><blockquote>Emplacement pour un vrai témoignage de participante.</blockquote><figcaption>Prénom · à compléter</figcaption></figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- INSTAGRAM -->
-    <section class="section section-dark section-insta">
-      <div class="container">
-        <div class="insta-head">
-          <div>
-            <p class="eyebrow reveal">Sur Instagram</p>
-            <h2 class="reveal">Suis le <em>mouvement</em>.</h2>
-          </div>
-          <a href="https://www.instagram.com/" class="btn btn-ghost reveal" target="_blank" rel="noopener">@luma · à compléter</a>
-        </div>
-        <div class="insta-grid">
-          <div class="insta-tile t1 reveal"><span>Reel</span></div>
-          <div class="insta-tile t2 reveal"><span>Reel</span></div>
-          <div class="insta-tile t3 reveal"><span>Reel</span></div>
-          <div class="insta-tile t4 reveal"><span>Reel</span></div>
+          <a href="#formules" class="btn btn-glow reveal">Découvrir les formules</a>
         </div>
       </div>
     </section>
@@ -271,13 +220,10 @@
         <div>
           <p class="eyebrow reveal">Contact</p>
           <h2 class="reveal">Envie de <em>bouger</em> ?</h2>
-          <p class="lead lead-light reveal">Une question, une réservation, un événement à organiser ? Écris-moi, je réponds sous 48 h.</p>
-          <ul class="contact-links reveal">
-            <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram · à compléter</a></li>
-            <li><a href="#" data-email-link>E-mail · à compléter</a></li>
-          </ul>
+          <p class="lead lead-light reveal">Une question, un atelier, un événement à organiser ? Le formulaire de contact ouvre très bientôt.</p>
         </div>
         <form class="form reveal" id="contact-form">
+          <fieldset disabled>
           <label>Prénom<input type="text" name="prenom" required autocomplete="given-name"></label>
           <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
           <label>Je suis intéressée par
@@ -291,7 +237,8 @@
             </select>
           </label>
           <label>Message<textarea name="message" rows="4"></textarea></label>
-          <button type="submit" class="btn btn-glow">Envoyer</button>
+          <button type="submit" class="btn btn-glow">Bientôt disponible</button>
+          </fieldset>
           <p class="form-note" id="form-note" aria-live="polite"></p>
         </form>
       </div>
@@ -303,7 +250,7 @@
     <div class="container footer-inner">
       <a href="#top" class="logo">Luma<span class="logo-dot"></span></a>
       <p>Ateliers de danse et de mouvement pour femmes · Clichy et Paris</p>
-      <p class="footer-small">© 2026 Luma · Mentions légales à compléter</p>
+      <p class="footer-small">© 2026 Luma</p>
     </div>
   </footer>
 
