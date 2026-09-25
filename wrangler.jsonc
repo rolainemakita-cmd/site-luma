@@ -1,0 +1,8 @@
+// Configuration Cloudflare Workers : site statique servi depuis le dossier public/
+{
+  "name": "site-luma",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./public"
+  }
+}
