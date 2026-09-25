@@ -1,5 +1,5 @@
-// Adresse e-mail de contact (à remplacer par la vraie adresse Luma)
-const CONTACT_EMAIL = "";
+// Adresse e-mail de contact de Luma
+const CONTACT_EMAIL = "atelier.mouvement.luma@gmail.com";
 
 // Barre de navigation : fond au scroll
 const nav = document.querySelector(".nav");
