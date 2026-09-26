@@ -1,64 +1,56 @@
-// Adresse e-mail de contact de Luma
-const CONTACT_EMAIL = "atelier.mouvement.luma@gmail.com";
-
-// Barre de navigation : fond au scroll
-const nav = document.querySelector(".nav");
-const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
-window.addEventListener("scroll", onScroll, { passive: true });
-onScroll();
+// En-tête : fond clair une fois la vidéo d'accueil passée
+const entete = document.querySelector(".entete");
+const accueil = document.querySelector(".accueil");
+const barre = document.querySelector(".barre-mobile");
+const reserver = document.getElementById("reserver");
+const majEntete = () => {
+  const passe = window.scrollY > accueil.offsetHeight - 80;
+  entete.classList.toggle("pleine", passe);
+  const avantReserver = window.scrollY + window.innerHeight < reserver.offsetTop + 120;
+  barre.classList.toggle("visible", passe && avantReserver);
+};
+window.addEventListener("scroll", majEntete, { passive: true });
+majEntete();
 
 // Menu mobile
-const toggle = document.querySelector(".nav-toggle");
+const burger = document.querySelector(".burger");
 const menu = document.getElementById("menu");
-toggle.addEventListener("click", () => {
-  const open = toggle.getAttribute("aria-expanded") === "true";
-  toggle.setAttribute("aria-expanded", String(!open));
-  menu.classList.toggle("open", !open);
+burger.addEventListener("click", () => {
+  const ouvert = burger.getAttribute("aria-expanded") === "true";
+  burger.setAttribute("aria-expanded", String(!ouvert));
+  menu.classList.toggle("ouvert", !ouvert);
+  entete.classList.toggle("pleine", !ouvert || window.scrollY > accueil.offsetHeight - 80);
 });
-menu.querySelectorAll("a").forEach((a) =>
-  a.addEventListener("click", () => {
-    toggle.setAttribute("aria-expanded", "false");
-    menu.classList.remove("open");
-  })
-);
+menu.querySelectorAll("a").forEach((lien) => lien.addEventListener("click", () => {
+  burger.setAttribute("aria-expanded", "false");
+  menu.classList.remove("ouvert");
+}));
 
-// Apparition des éléments au scroll
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-);
-document.querySelectorAll(".reveal").forEach((el, i) => {
-  el.style.transitionDelay = `${(i % 4) * 80}ms`;
-  observer.observe(el);
-});
+// Apparition douce au défilement
+const observateur = new IntersectionObserver((entrees) => entrees.forEach((e) => {
+  if (e.isIntersecting) { e.target.classList.add("vu"); observateur.unobserve(e.target); }
+}), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+document.querySelectorAll(".revele").forEach((el) => observateur.observe(el));
 
-// Lien e-mail
-document.querySelectorAll("[data-email-link]").forEach((a) => {
-  if (CONTACT_EMAIL) {
-    a.href = `mailto:${CONTACT_EMAIL}`;
-    a.textContent = CONTACT_EMAIL;
-  }
-});
+// Vidéos : lecture seulement quand elles sont visibles
+const lecteur = new IntersectionObserver((entrees) => entrees.forEach((e) => {
+  if (e.isIntersecting) e.target.play().catch(() => {});
+  else e.target.pause();
+}), { threshold: 0.05 });
+document.querySelectorAll("video").forEach((v) => lecteur.observe(v));
 
-// Formulaire de contact : ouvre la messagerie en attendant un vrai service d'envoi
-const form = document.getElementById("contact-form");
-const note = document.getElementById("form-note");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  if (!CONTACT_EMAIL) {
-    note.textContent = "Brouillon : l'adresse e-mail de Luma n'est pas encore configurée.";
-    return;
-  }
-  const data = new FormData(form);
-  const subject = `Luma : ${data.get("sujet")}`;
-  const body = `${data.get("message")}\n\n${data.get("prenom")} (${data.get("email")})`;
-  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  note.textContent = "Ta messagerie s'ouvre pour envoyer le message.";
-});
+// Vidéo d'accueil : quelques passages au ralenti, avec des transitions douces
+const videoAccueil = document.querySelector(".accueil-video");
+if (videoAccueil) {
+  const ralentis = [[1.8, 3.8], [5.6, 7.4]];
+  setInterval(() => {
+    const t = videoAccueil.currentTime;
+    const cible = ralentis.some(([debut, fin]) => t >= debut && t < fin) ? 0.4 : 1;
+    const actuel = videoAccueil.playbackRate;
+    if (Math.abs(cible - actuel) > 0.01) {
+      const pas = Math.sign(cible - actuel) * Math.min(0.12, Math.abs(cible - actuel));
+      videoAccueil.playbackRate = Math.round((actuel + pas) * 100) / 100;
+    }
+  }, 100);
+}
+

@@ -3,267 +3,283 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Luma · Ateliers de danse et de mouvement pour femmes</title>
-  <meta name="description" content="Luma, ce sont des ateliers de 2 heures pour revenir dans son corps : mouvement conscient, danse (street jazz, afro, dancehall) et éveil. Réservés aux femmes, places limitées.">
+  <title>Atelier Mouvement Lumâ · Cours de danse pour débutantes et coaching · Clichy (92)</title>
+  <meta name="description" content="Cours de danse en petit groupe, ouverts aux débutantes, et coachings personnalisés en studio, à domicile ou en visio. Réserve ta séance découverte. Atelier basé à Clichy (92).">
   <link rel="canonical" href="https://lumamouvement.com/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Atelier Mouvement Lumâ">
   <meta property="og:url" content="https://lumamouvement.com/">
-  <meta property="og:title" content="Luma · Ateliers de danse et de mouvement pour femmes">
-  <meta property="og:description" content="Deux heures de mouvement, de danse et de respiration pour relâcher, ressentir et rayonner. Places limitées.">
-  <meta name="theme-color" content="#15100e">
+  <meta property="og:title" content="Atelier Mouvement Lumâ · Viens danser, même si tu n'as jamais dansé">
+  <meta property="og:description" content="Cours de danse en petit groupe, ouverts aux débutantes, et coachings personnalisés. Deux heures pour bouger, lâcher prise et prendre confiance. Atelier basé à Clichy (92).">
+  <meta property="og:image" content="https://lumamouvement.com/media/hero.jpg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#6E2E3A">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="nav" id="top">
-    <a href="#top" class="logo" aria-label="Luma, accueil">Luma<span class="logo-dot"></span></a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">
-      <span></span><span></span>
-    </button>
-    <nav id="menu" class="menu">
-      <a href="#concept">Le concept</a>
+<div class="annonce">Tarif de lancement : 25 € la séance · 12 places<span class="annonce-plus"> par séance · Débutantes bienvenues</span></div>
+
+<header class="entete">
+  <div class="conteneur entete-ligne">
+    <a href="#haut" class="logo" aria-label="Atelier Mouvement Lumâ, accueil">LUMÂ<small>Atelier Mouvement</small></a>
+    <nav class="menu" id="menu" aria-label="Navigation principale">
+      <a href="#seance">La séance</a>
       <a href="#formules">Formules</a>
-      <a href="#agenda">Agenda</a>
-      <a href="#rolaine">Qui suis-je</a>
-      <a href="#contact">Contact</a>
-      <a href="#agenda" class="btn btn-small btn-glow">Prochaines dates</a>
+      <a href="#avis">Avis</a>
+      <a href="#rolaine">Qui je suis</a>
+      <a href="#questions">Questions</a>
     </nav>
-  </header>
+    <a href="#reserver" class="bouton bouton-petit entete-cta">Réserver</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
 
-  <main>
+<main id="haut">
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="halo" aria-hidden="true">
-        <span class="orb orb-1"></span>
-        <span class="orb orb-2"></span>
-        <span class="orb orb-3"></span>
+  <!-- 1. ACCUEIL : promesse, pour qui, action -->
+  <section class="accueil">
+    <video class="accueil-video" autoplay muted loop playsinline preload="auto" poster="media/hero.jpg" aria-hidden="true"><source src="media/hero.mp4?v=3" type="video/mp4"></video>
+    <div class="accueil-voile" aria-hidden="true"></div>
+    <div class="conteneur accueil-contenu">
+      <p class="accueil-lieu">Cours de danse · Atelier basé à Clichy (92)</p>
+      <h1>Viens danser, même si tu n'as jamais dansé.</h1>
+      <p class="accueil-texte">Deux heures en petit groupe pour bouger, lâcher prise et prendre confiance en toi. Sans pression, sans jugement.</p>
+      <div class="boutons">
+        <a href="#reserver" class="bouton">Réserver ma séance découverte</a>
+        <a href="#formules" class="bouton bouton-clair">Voir les formules</a>
       </div>
-      <div class="hero-inner">
-        <p class="eyebrow">Ateliers réservés aux femmes · Places limitées</p>
-        <h1>Reviens dans<br>ton <em>corps</em>.</h1>
-        <p class="hero-sub">Deux heures de mouvement, de danse et de respiration pour relâcher, ressentir et rayonner. Aucun niveau requis, juste l'envie.</p>
-        <div class="hero-cta">
-          <a href="#agenda" class="btn btn-glow">Voir les prochaines dates</a>
-          <a href="#concept" class="btn btn-ghost">Découvrir Luma</a>
-        </div>
-      </div>
-      <a href="#concept" class="scroll-hint" aria-label="Descendre">
-        <span></span>
-      </a>
-    </section>
-
-    <!-- BANDEAU -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Street jazz</span><i>✦</i><span>Afro</span><i>✦</i><span>Dancehall</span><i>✦</i><span>Mouvement conscient</span><i>✦</i><span>Respiration</span><i>✦</i><span>Éveil</span><i>✦</i>
-        <span>Street jazz</span><i>✦</i><span>Afro</span><i>✦</i><span>Dancehall</span><i>✦</i><span>Mouvement conscient</span><i>✦</i><span>Respiration</span><i>✦</i><span>Éveil</span><i>✦</i>
-      </div>
+      <figure class="accueil-avis">
+        <blockquote>« J'en suis ressortie légère, apaisée. J'étais clairement dans ma safe place. »</blockquote>
+        <figcaption>Yolande, participante</figcaption>
+      </figure>
     </div>
+  </section>
 
-    <!-- CONCEPT -->
-    <section class="section section-light" id="concept">
-      <div class="container">
-        <p class="eyebrow eyebrow-dark reveal">Le concept</p>
-        <h2 class="reveal">Luma, c'est la lumière qu'on retrouve <em>quand on bouge</em>.</h2>
-        <p class="lead reveal">Un espace pensé pour les femmes qui courent toute la semaine et oublient de s'écouter. Pas de miroir qui juge, pas de performance : du mouvement, de la musique et un cercle bienveillant.</p>
+  <!-- 2. LES ESSENTIELS -->
+  <section class="essentiels">
+    <div class="conteneur essentiels-grille">
+      <div><strong>Débutantes bienvenues</strong><span>Aucun niveau requis</span></div>
+      <div><strong>12 places maximum</strong><span>Une vraie attention pour chacune</span></div>
+      <div><strong>2 h par séance</strong><span>Un soir en semaine ou le dimanche</span></div>
+      <div><strong>Dès 25 €</strong><span>Tarif de lancement</span></div>
+    </div>
+  </section>
 
-        <div class="pillars">
-          <article class="pillar reveal">
-            <span class="pillar-num">01</span>
-            <h3>Relâcher</h3>
-            <p>Respiration et mouvement doux pour déposer la fatigue, les tensions et la charge mentale.</p>
-          </article>
-          <article class="pillar reveal">
-            <span class="pillar-num">02</span>
-            <h3>Ressentir</h3>
-            <p>Mouvement conscient et improvisation guidée pour se reconnecter à ses sensations.</p>
-          </article>
-          <article class="pillar reveal">
-            <span class="pillar-num">03</span>
-            <h3>Rayonner</h3>
-            <p>Une chorégraphie street jazz, afro ou dancehall pour libérer l'énergie et repartir alignée.</p>
-          </article>
-        </div>
+  <!-- 3. CE QUE TU VAS VIVRE -->
+  <section class="section" id="seance">
+    <div class="conteneur seance">
+      <div class="seance-video seance-photo revele"><img src="media/seance-ancrage.jpg" alt="Des participantes debout, les yeux fermés, pendant le moment d’ancrage en début de séance" loading="lazy">
       </div>
-    </section>
-
-    <!-- DEROULE -->
-    <section class="section section-dark">
-      <div class="container split">
-        <div>
-          <p class="eyebrow reveal">Comment ça se passe</p>
-          <h2 class="reveal">Deux heures, <em>quatre temps</em>.</h2>
-          <p class="lead lead-light reveal">Chaque atelier suit le même fil, pour que tu puisses lâcher prise dès la première minute.</p>
-        </div>
-        <ol class="timeline">
-          <li class="reveal"><span class="time">15 min</span><div><h3>Arrivée et respiration</h3><p>On pose le téléphone, on respire, on arrive vraiment.</p></div></li>
-          <li class="reveal"><span class="time">30 min</span><div><h3>Mouvement conscient</h3><p>Réveil du corps, étirements dansés, écoute de soi.</p></div></li>
-          <li class="reveal"><span class="time">60 min</span><div><h3>Danse</h3><p>Apprentissage d'une chorégraphie accessible, puis freestyle guidé.</p></div></li>
-          <li class="reveal"><span class="time">15 min</span><div><h3>Cercle de clôture</h3><p>Un moment d'échange et un thé pour repartir en douceur.</p></div></li>
+      <div>
+        <p class="etiquette revele">La séance</p>
+        <h2 class="revele">Deux heures rien que pour toi.</h2>
+        <p class="chapo revele">On arrive doucement, on danse, et on repart légère. Chaque séance suit le même fil, pour que tu te sentes à l'aise dès la première fois.</p>
+        <ol class="etapes">
+          <li class="revele"><span>01</span><strong>Ancrage</strong><em>On arrive, on respire.</em></li>
+          <li class="revele"><span>02</span><strong>Échauffement</strong><em>Le corps se réveille en douceur.</em></li>
+          <li class="revele"><span>03</span><strong>Mouvement</strong><em>Exercices, enchaînements et un peu d'improvisation.</em></li>
+          <li class="revele"><span>04</span><strong>Chorégraphie</strong><em>Un style hybride, inspiré du street jazz, de la danse commerciale, de l'afro et du dancehall. En baskets, pieds nus ou en talons.</em></li>
+          <li class="revele"><span>05</span><strong>Relâchement</strong><em>Retour au calme et moment d'échange.</em></li>
         </ol>
       </div>
-    </section>
-
-    <!-- FORMULES -->
-    <section class="section section-light" id="formules">
-      <div class="container">
-        <p class="eyebrow eyebrow-dark reveal">Formules</p>
-        <h2 class="reveal">Trouve <em>ton</em> format.</h2>
-
-        <div class="offers">
-          <article class="offer reveal">
-            <p class="offer-tag">Le rendez-vous</p>
-            <h3>Atelier Luma</h3>
-            <p class="price price-soon">Bientôt<span> / 2 h</span></p>
-            <ul>
-              <li>8 à 10 participantes maximum</li>
-              <li>Tous niveaux</li>
-              <li>Thé et cercle de clôture inclus</li>
-            </ul>
-            <a href="#agenda" class="btn btn-dark">Prochaines dates</a>
-          </article>
-
-          <article class="offer offer-featured reveal">
-            <p class="offer-tag">Le plus choisi</p>
-            <h3>Cercle Luma</h3>
-            <p class="price price-soon">Bientôt<span> / 4 ateliers</span></p>
-            <ul>
-              <li>Tarif préférentiel</li>
-              <li>Valable 3 mois</li>
-              <li>Priorité sur les stages et retraites</li>
-            </ul>
-            <a href="#agenda" class="btn btn-glow">Prochaines dates</a>
-          </article>
-
-          <article class="offer reveal">
-            <p class="offer-tag">Pour les équipes</p>
-            <h3>Luma en entreprise</h3>
-            <p class="price">Sur devis</p>
-            <ul>
-              <li>Atelier bien-être pour vos collaboratrices</li>
-              <li>Dans vos locaux ou en studio</li>
-              <li>Format 1 h 30 ou 2 h</li>
-            </ul>
-            <a href="#contact" class="btn btn-dark">Demander un devis</a>
-          </article>
-
-          <article class="offer reveal">
-            <p class="offer-tag">Entre vous</p>
-            <h3>Événement privé</h3>
-            <p class="price">Sur devis</p>
-            <ul>
-              <li>EVJF, anniversaire, entre amies</li>
-              <li>Chorégraphie sur votre musique</li>
-              <li>Souvenir vidéo possible</li>
-            </ul>
-            <a href="#contact" class="btn btn-dark">En parler</a>
-          </article>
-        </div>
-
-        <div class="retreat reveal">
-          <div>
-            <p class="offer-tag">Bientôt</p>
-            <h3>Stages et retraites Luma</h3>
-            <p>Un week-end hors du temps : pilates, danse, mouvement et nature. Les places seront limitées et proposées d'abord aux membres du Cercle.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- AGENDA -->
-    <section class="section section-sand" id="agenda">
-      <div class="container">
-        <p class="eyebrow eyebrow-dark reveal">Agenda</p>
-        <h2 class="reveal">Les prochaines <em>dates</em>.</h2>
-        <p class="lead reveal">Les places sont limitées et se réservent à l'avance. Annulation gratuite jusqu'à 48 h avant l'atelier.</p>
-
-        <div class="soon reveal">
-          <span class="soon-dot" aria-hidden="true"></span>
-          <div>
-            <h3>Les prochaines dates arrivent bientôt.</h3>
-            <p>Les ateliers reprennent très prochainement, en petit comité. Reviens vite pour découvrir le calendrier.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ROLAINE -->
-    <section class="section section-dark" id="rolaine">
-      <div class="container split split-about">
-        <div class="portrait reveal" aria-hidden="true"></div>
-        <div>
-          <p class="eyebrow reveal">Qui suis-je</p>
-          <h2 class="reveal">Le jour, la finance.<br>Le soir, <em>la danse</em>.</h2>
-          <p class="lead lead-light reveal">Je m'appelle Rolaine. Je travaille dans la finance, et depuis des années, la danse est l'endroit où je me retrouve : street jazz, danse commerciale, afro, dancehall.</p>
-          <p class="lead lead-light reveal">J'ai créé Luma pour offrir aux femmes ce que la danse m'a donné : un moment pour soi, de la confiance et de la lumière. Luma est né entre ces deux vies.</p>
-          <a href="#formules" class="btn btn-glow reveal">Découvrir les formules</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section section-light">
-      <div class="container container-narrow">
-        <p class="eyebrow eyebrow-dark reveal">Questions fréquentes</p>
-        <h2 class="reveal">Avant de <em>venir</em>.</h2>
-        <div class="faq">
-          <details class="reveal"><summary>Faut-il savoir danser ?</summary><p>Non. Les ateliers sont pensés pour tous les niveaux. Tu avances à ton rythme, sans jugement.</p></details>
-          <details class="reveal"><summary>Comment dois-je m'habiller ?</summary><p>Une tenue confortable dans laquelle tu te sens bien, et une bouteille d'eau. Pour les ateliers en talons, c'est précisé à la réservation.</p></details>
-          <details class="reveal"><summary>Pourquoi uniquement des femmes ?</summary><p>Pour créer un espace où chacune se sent libre de bouger, de lâcher prise et de partager.</p></details>
-          <details class="reveal"><summary>Et si je dois annuler ?</summary><p>L'annulation est gratuite jusqu'à 48 h avant l'atelier. Ensuite, la place reste due, car elle ne peut plus être proposée à une autre participante.</p></details>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="section section-dark" id="contact">
-      <div class="halo halo-soft" aria-hidden="true"><span class="orb orb-2"></span></div>
-      <div class="container split">
-        <div>
-          <p class="eyebrow reveal">Contact</p>
-          <h2 class="reveal">Envie de <em>bouger</em> ?</h2>
-          <p class="lead lead-light reveal">Une question, un atelier, un événement à organiser ? Écris-moi, je réponds sous 48 h.</p>
-          <ul class="contact-links reveal">
-            <li><a href="mailto:atelier.mouvement.luma@gmail.com" data-email-link>atelier.mouvement.luma@gmail.com</a></li>
-          </ul>
-        </div>
-        <form class="form reveal" id="contact-form">
-          <fieldset>
-          <label>Prénom<input type="text" name="prenom" required autocomplete="given-name"></label>
-          <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
-          <label>Je suis intéressée par
-            <select name="sujet">
-              <option>Un atelier Luma</option>
-              <option>Le Cercle Luma (4 ateliers)</option>
-              <option>Luma en entreprise</option>
-              <option>Un événement privé</option>
-              <option>Les stages et retraites</option>
-              <option>Autre chose</option>
-            </select>
-          </label>
-          <label>Message<textarea name="message" rows="4"></textarea></label>
-          <button type="submit" class="btn btn-glow">Envoyer</button>
-          </fieldset>
-          <p class="form-note" id="form-note" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <a href="#top" class="logo">Luma<span class="logo-dot"></span></a>
-      <p>Ateliers de danse et de mouvement pour femmes · Clichy et Paris</p>
-      <p class="footer-small">© 2026 Luma</p>
     </div>
-  </footer>
+  </section>
 
-  <script src="script.js"></script>
+  <!-- 4. FORMULES -->
+  <section class="section section-poudre" id="formules">
+    <div class="conteneur">
+      <p class="etiquette revele">Formules</p>
+      <h2 class="revele">Choisis comment tu veux danser.</h2>
+      <div class="formules">
+        <article class="formule revele">
+          <div class="formule-media"><img src="media/collectif-photo.jpg" alt="Un groupe de participantes en pleine danse pendant un atelier, en noir et blanc" loading="lazy"></div>
+          <div class="formule-corps">
+            <h3>Cours collectifs</h3>
+            <p class="formule-prix">Dès 25 € <small>la séance</small></p>
+            <ul>
+              <li>2 h en groupe de 12 personnes maximum</li>
+              <li>Un soir en semaine ou le dimanche</li>
+              <li>Un style hybride : street jazz, commercial, afro, dancehall</li>
+              <li>Cycles de 6 séances, avec la chorégraphie filmée à la fin</li>
+            </ul>
+            <a href="#reserver" class="bouton">Réserver ma place</a>
+          </div>
+        </article>
+        <article class="formule revele">
+          <div class="formule-media formule-media-portrait"><img src="media/canape.jpg" alt="Rolaine détendue dans un canapé, en noir et blanc" loading="lazy"></div>
+          <div class="formule-corps">
+            <h3>Coachings personnalisés</h3>
+            <p class="formule-prix">Dès 75 € <small>la séance de 1 h 30</small></p>
+            <ul>
+              <li>En solo, en duo ou entre amies</li>
+              <li>En studio, chez toi ou en visio</li>
+              <li>Progresser, être à l'aise en talons, préparer ta première danse de mariage ou un EVJF</li>
+            </ul>
+            <a href="#reserver" class="bouton bouton-contour">Demander un coaching</a>
+          </div>
+        </article>
+      </div>
+      <details class="tarifs revele">
+        <summary>Voir tous les tarifs</summary>
+        <div class="tarifs-grille">
+          <table>
+            <caption>Cours collectifs · tarif de lancement</caption>
+            <tr><td>La séance de 2 h</td><td>25 €</td></tr>
+            <tr><td>Le cycle de 6 séances <small>payable en 2 fois, tournage compris</small></td><td>140 €</td></tr>
+          </table>
+          <table>
+            <caption>Coachings · 1 h 30, studio ou déplacement compris</caption>
+            <tr><td>Individuel <small>3 séances : 375 € · 5 séances : 600 €</small></td><td>130 €</td></tr>
+            <tr><td>Duo <small>3 séances : 480 €</small></td><td>170 €</td></tr>
+            <tr><td>Petit groupe privé (3 à 6)</td><td>dès 240 €</td></tr>
+            <tr><td>Visio</td><td>75 €</td></tr>
+            <tr><td>Première danse de mariage <small>en duo, 4 séances</small></td><td>640 €</td></tr>
+            <tr><td>Entreprises</td><td>sur devis</td></tr>
+          </table>
+        </div>
+        <p class="petit">Paiement à la réservation. Annulation gratuite jusqu'à 48 h avant. À domicile : Paris et Hauts-de-Seine.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- 5. PROCHAINES SÉANCES -->
+  <section class="section section-sombre" id="prochaines">
+    <div class="conteneur">
+      <div class="entete-section">
+        <div>
+          <p class="etiquette revele">Prochaines séances</p>
+          <h2 class="revele">Choisis ton créneau.</h2>
+        </div>
+        <p class="entete-section-texte revele">Les dates du premier cycle arrivent. Inscris-toi pour être prévenue en priorité et garder ta place.</p>
+      </div>
+      <div class="creneaux">
+        <article class="creneau revele">
+          <p class="creneau-type">Cours collectif</p>
+          <h3>Un soir en semaine</h3>
+          <p class="creneau-heure">À partir de 20 h · 2 h</p>
+          <p class="creneau-detail">Débutant et intermédiaire · 12 places</p>
+          <div class="creneau-bas">
+            <span class="creneau-coach"><img src="media/portrait.jpg" alt="" loading="lazy">Avec Rolaine</span>
+            <a href="https://ig.me/j/Abarn9u6THySZ0JK" class="bouton bouton-petit bouton-clair" target="_blank" rel="noopener">Être prévenue</a>
+          </div>
+        </article>
+        <article class="creneau revele">
+          <p class="creneau-type">Cours collectif</p>
+          <h3>Le dimanche</h3>
+          <p class="creneau-heure">17 h - 19 h · 2 h</p>
+          <p class="creneau-detail">Débutant et intermédiaire · 12 places</p>
+          <div class="creneau-bas">
+            <span class="creneau-coach"><img src="media/portrait.jpg" alt="" loading="lazy">Avec Rolaine</span>
+            <a href="https://ig.me/j/Abarn9u6THySZ0JK" class="bouton bouton-petit bouton-clair" target="_blank" rel="noopener">Être prévenue</a>
+          </div>
+        </article>
+        <article class="creneau revele">
+          <p class="creneau-type">Coaching</p>
+          <h3>Sur rendez-vous</h3>
+          <p class="creneau-heure">1 h 30 · quand tu veux</p>
+          <p class="creneau-detail">En studio, chez toi ou en visio</p>
+          <div class="creneau-bas">
+            <span class="creneau-coach"><img src="media/portrait.jpg" alt="" loading="lazy">Avec Rolaine</span>
+            <a href="mailto:atelier.mouvement.luma@gmail.com?subject=Demande%20de%20coaching" class="bouton bouton-petit bouton-clair">Réserver</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TA PREMIÈRE SÉANCE -->
+  <section class="section">
+    <div class="conteneur premiere">
+      <div>
+        <p class="etiquette revele">Ta première séance</p>
+        <h2 class="revele">Tout en douceur.</h2>
+        <p class="chapo revele">Tu te demandes comment ça va se passer ? Voilà tout ce qu'il faut savoir.</p>
+      </div>
+      <ul class="conseils">
+        <li class="revele"><h3>Aucun niveau requis</h3><p>Tout est expliqué pas à pas. Tu avances à ton rythme, sans jamais te sentir jugée.</p></li>
+        <li class="revele"><h3>Ta tenue</h3><p>Une tenue confortable dans laquelle tu te sens bien. Baskets ou pieds nus, et tes talons si le cycle le prévoit : c'est précisé à l'inscription.</p></li>
+        <li class="revele"><h3>À apporter</h3><p>Une bouteille d'eau, et l'envie de te faire du bien. C'est tout.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. AVIS -->
+  <section class="section section-poudre" id="avis">
+    <div class="conteneur">
+      <p class="etiquette revele">Avis</p>
+      <h2 class="revele">Elles sont venues. Elles en parlent.</h2>
+      <div class="avis">
+        <figure class="revele"><blockquote>« Un moment suspendu dans le temps. J'étais clairement dans ma safe place. »</blockquote><figcaption>Yolande</figcaption></figure>
+        <figure class="revele"><blockquote>« Tu arrives à nous faire voyager, rire, s'écouter, danser, s'évader. »</blockquote><figcaption>Marjorie</figcaption></figure>
+        <figure class="revele"><blockquote>« Je suis sortie de cet atelier à la fois détendue et énergétique. À refaire ! »</blockquote><figcaption>Naimath</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. QUI JE SUIS -->
+  <section class="section" id="rolaine">
+    <div class="conteneur rolaine">
+      <img class="revele" src="media/portrait.jpg" alt="Portrait de Rolaine, fondatrice de l'Atelier Mouvement Lumâ" loading="lazy">
+      <div>
+        <p class="etiquette revele">Qui je suis</p>
+        <h2 class="revele">Moi, c'est Rolaine.</h2>
+        <p class="revele">Je danse depuis cinq ans, entre cours, stages et workshops, notamment au LAX Studio, avec une attention particulière à la danse en talons. J'ai assisté un chorégraphe dans la création de ses chorégraphies et dansé lors d'un show au Palais des Glaces. Je suis aussi formée au mouvement par des danse-thérapeutes (certification « En Mouvement » de La Danse des Femmes).</p>
+        <p class="revele">En semaine, je travaille dans la finance. Je connais le rythme des femmes actives, et c'est pour elles que j'ai créé ces rendez-vous.</p>
+        <p class="devise revele">Le mouvement comme outil. La danse comme miroir. Toi, au centre.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. QUESTIONS -->
+  <section class="section section-creme" id="questions">
+    <div class="conteneur questions">
+      <div>
+        <p class="etiquette revele">Questions</p>
+        <h2 class="revele">Tu hésites encore ?</h2>
+      </div>
+      <div class="faq">
+        <details class="revele" open><summary>Je ne suis pas souple, est-ce grave ?</summary><p>Pas du tout. La souplesse vient avec la pratique. Ce qui compte, c'est d'avoir envie.</p></details>
+        <details class="revele"><summary>Où ont lieu les cours ?</summary><p>Le lieu est communiqué à l'inscription. Les coachings peuvent aussi avoir lieu chez toi ou en visio.</p></details>
+        <details class="revele"><summary>Et si je dois annuler ?</summary><p>L'annulation est gratuite jusqu'à 48 h avant la séance.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. RÉSERVER -->
+  <section class="reserver" id="reserver">
+    <p class="reserver-fond" aria-hidden="true">Lumâ</p>
+    <div class="conteneur reserver-contenu">
+      <p class="etiquette revele">Prochain cycle bientôt · 12 places</p>
+      <h2 class="revele">Ta place t'attend.</h2>
+      <p class="revele">Réserve ta séance découverte, ou inscris-toi pour être prévenue en priorité de l'ouverture du prochain cycle.</p>
+      <div class="boutons revele">
+        <a href="mailto:atelier.mouvement.luma@gmail.com?subject=S%C3%A9ance%20d%C3%A9couverte" class="bouton bouton-clair">Réserver ma séance découverte</a>
+        <a href="https://ig.me/j/Abarn9u6THySZ0JK" class="bouton bouton-contour-clair" target="_blank" rel="noopener">Être prévenue en priorité</a>
+      </div>
+      <p class="reserver-infos revele"><a href="mailto:atelier.mouvement.luma@gmail.com">atelier.mouvement.luma@gmail.com</a> · <a href="https://www.instagram.com/mouvement.luma/" target="_blank" rel="noopener">Instagram @mouvement.luma</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pied">
+  <div class="conteneur pied-ligne">
+    <p>© 2026 Atelier Mouvement Lumâ · Atelier basé à Clichy (92)</p>
+    <p><a href="mailto:atelier.mouvement.luma@gmail.com">Contact</a> · <a href="https://www.instagram.com/mouvement.luma/" target="_blank" rel="noopener">Instagram</a></p>
+  </div>
+</footer>
+
+<!-- Bouton de réservation toujours visible sur téléphone -->
+<a href="#reserver" class="barre-mobile">Réserver ma séance découverte</a>
+
+<script src="script.js"></script>
 </body>
 </html>
