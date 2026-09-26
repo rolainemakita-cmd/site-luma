@@ -73,6 +73,9 @@ h3 { font-size: clamp(22px, 2vw, 27px); letter-spacing: .005em; }
 /* Accueil */
 .accueil { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: #fff; overflow: hidden; }
 .accueil-video { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+/* Vidéo impossible à lancer : l'image d'accueil bouge doucement à la place */
+.accueil-fixe .accueil-video { animation: accueil-respire 10s ease-in-out infinite alternate; transform-origin: 60% 40%; }
+@keyframes accueil-respire { to { transform: scale(1.12); } }
 .accueil-voile { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28,21,23,.55) 0%, rgba(28,21,23,.2) 30%, rgba(28,21,23,.55) 60%, rgba(28,21,23,.88) 100%); }
 .accueil-contenu { position: relative; z-index: 2; padding: 140px 0 64px; }
 .accueil-lieu { font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; opacity: .85; margin-bottom: 18px; }
@@ -226,6 +229,7 @@ h3 { font-size: clamp(22px, 2vw, 27px); letter-spacing: .005em; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .revele { opacity: 1; transform: none; transition: none; }
+  .accueil-fixe .accueil-video { animation: none; }
 }
 
 @media (max-width: 600px) { .annonce { font-size: 10px; letter-spacing: .06em; } .annonce-plus { display: none; } }
