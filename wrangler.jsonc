@@ -1,10 +1,11 @@
 // Configuration Cloudflare Workers : les fichiers du dossier public/ sont servis tels quels.
-// src/worker.js ne traite que les adresses /video/... (vidéos envoyées par morceaux, indispensable sur iPhone).
+// src/worker.js traite la page d'accueil (redirection vers https://lumamouvement.com)
+// et les adresses /video/... (vidéos envoyées par morceaux, indispensable sur iPhone).
 {
   "name": "site-luma",
   "main": "src/worker.js",
   "compatibility_date": "2026-09-01",
-  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/", "/index.html"] },
   "routes": [
     { "pattern": "lumamouvement.com", "custom_domain": true },
     { "pattern": "www.lumamouvement.com", "custom_domain": true }

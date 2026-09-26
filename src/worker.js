@@ -1,10 +1,19 @@
 // Worker du site Lumâ.
 // Les fichiers de public/ sont servis directement par Cloudflare, sans passer par ce script.
-// Seules les adresses /video/... arrivent ici : la vidéo de public/media/ est renvoyée par
-// morceaux (requêtes « Range »), sans quoi Safari sur iPhone et iPad refuse de la lire.
+// N'arrivent ici que la page d'accueil (voir run_worker_first dans wrangler.jsonc) et les adresses /video/...
+// - la page d'accueil demandée en http:// ou sur www. est renvoyée vers https://lumamouvement.com
+//   (sinon les navigateurs affichent « Non sécurisé ») ;
+// - la vidéo de public/media/ est renvoyée par morceaux (requêtes « Range »), sans quoi
+//   Safari sur iPhone et iPad refuse de la lire.
 export default {
   async fetch(requete, env) {
     const url = new URL(requete.url);
+    if (url.protocol === "http:" || url.hostname.startsWith("www.")) {
+      url.protocol = "https:";
+      url.hostname = url.hostname.replace(/^www\./, "");
+      return Response.redirect(url.toString(), 301);
+    }
+
     const nom = /^\/video\/([\w-]+\.mp4)$/.exec(url.pathname)?.[1];
     if (!nom) return env.ASSETS.fetch(requete);
 
