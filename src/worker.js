@@ -9,9 +9,7 @@ export default {
     if (!nom) return env.ASSETS.fetch(requete);
 
     const fichier = await env.ASSETS.fetch(`${url.origin}/media/${nom}`);
-    const taille = Number(fichier.headers.get("content-length"));
-    if (!fichier.ok || !fichier.body || !taille) return fichier;
-
+    if (!fichier.ok) return fichier;
     const entetes = new Headers({
       "content-type": "video/mp4",
       "accept-ranges": "bytes",
@@ -22,11 +20,11 @@ export default {
 
     // Sans demande de morceau : le fichier entier
     const plage = /^bytes=(\d*)-(\d*)$/.exec(requete.headers.get("range") || "");
-    if (!plage || (plage[1] === "" && plage[2] === "")) {
-      entetes.set("content-length", String(taille));
-      if (requete.method === "HEAD") { fichier.body.cancel(); return new Response(null, { headers: entetes }); }
-      return new Response(fichier.body, { headers: entetes });
-    }
+    if (!plage || (plage[1] === "" && plage[2] === "")) return new Response(fichier.body, { headers: entetes });
+
+    // Cloudflare ne donne pas la taille du fichier au Worker : on la mesure en le lisant
+    const donnees = await fichier.arrayBuffer();
+    const taille = donnees.byteLength;
 
     // Bornes du morceau : « bytes=debut-fin », « bytes=debut- » ou « bytes=-n » (les n derniers octets)
     let debut, fin;
@@ -38,29 +36,10 @@ export default {
       fin = plage[2] === "" ? taille - 1 : Math.min(Number(plage[2]), taille - 1);
     }
     if (debut >= taille || debut > fin) {
-      fichier.body.cancel();
       return new Response(null, { status: 416, headers: { "content-range": `bytes */${taille}` } });
     }
 
-    const longueur = fin - debut + 1;
     entetes.set("content-range", `bytes ${debut}-${fin}/${taille}`);
-    entetes.set("content-length", String(longueur));
-    if (requete.method === "HEAD") { fichier.body.cancel(); return new Response(null, { status: 206, headers: entetes }); }
-
-    // On ne garde que les octets demandés, puis on arrête la lecture du fichier
-    let position = 0;
-    const decoupe = new TransformStream({
-      transform(morceau, controleur) {
-        const depart = position;
-        position += morceau.byteLength;
-        if (position > debut && depart <= fin) {
-          controleur.enqueue(morceau.subarray(Math.max(0, debut - depart), Math.min(morceau.byteLength, fin + 1 - depart)));
-        }
-        if (position > fin) controleur.terminate();
-      },
-    });
-    const { readable, writable } = new FixedLengthStream(longueur);
-    fichier.body.pipeThrough(decoupe).pipeTo(writable).catch(() => {});
-    return new Response(readable, { status: 206, headers: entetes });
+    return new Response(donnees.slice(debut, fin + 1), { status: 206, headers: entetes });
   },
 };
