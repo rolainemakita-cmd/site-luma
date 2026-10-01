@@ -1,11 +1,14 @@
-// Configuration Cloudflare Workers : les fichiers du dossier public/ sont servis tels quels.
+// Configuration Cloudflare Workers.
+// SITE EN PAUSE depuis le 01/10/2026 (remaniement du modèle économique) : seule la page d'attente
+// du dossier attente/ est en ligne. Le site complet reste dans public/ (aperçu local : serveur « site-luma »).
+// Pour le remettre en ligne : remplacer « ./attente » par « ./public » ci-dessous, puis commit et push.
 // src/worker.js traite la page d'accueil (redirection vers https://lumamouvement.com)
 // et les adresses /video/... (vidéos envoyées par morceaux, indispensable sur iPhone).
 {
   "name": "site-luma",
   "main": "src/worker.js",
   "compatibility_date": "2026-09-01",
-  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/", "/index.html"] },
+  "assets": { "directory": "./attente", "binding": "ASSETS", "run_worker_first": ["/", "/index.html"] },
   "routes": [
     { "pattern": "lumamouvement.com", "custom_domain": true },
     { "pattern": "www.lumamouvement.com", "custom_domain": true }
