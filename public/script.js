@@ -180,24 +180,39 @@ boutonSon.addEventListener("click", () => {
 document.addEventListener("visibilitychange", () => { if (document.hidden) arreter(); else if (voulue) demarrer(); });
 addEventListener("load", () => { if (voulue) demarrer(); });
 
-// La demande spéciale : le formulaire prépare un mail, prêt à partir depuis la messagerie de la personne.
+// Réserver : le formulaire envoie la demande au site (/demande), qui la transmet à la boîte de Lumâ.
+// Les boutons « Réserver » des formules y mènent, avec la bonne formule déjà choisie.
 const formulaire = document.getElementById("formulaire-devis");
-formulaire.addEventListener("submit", (evenement) => {
+const etat = formulaire.querySelector(".formulaire-etat");
+document.querySelectorAll("[data-projet]").forEach((lien) => lien.addEventListener("click", () => {
+  formulaire.elements.projet.value = lien.dataset.projet;
+  setTimeout(() => formulaire.elements.prenom.focus({ preventScroll: true }), 600);
+}));
+formulaire.addEventListener("submit", async (evenement) => {
   evenement.preventDefault();
   const champ = (nom) => formulaire.elements[nom].value.trim();
   const prenom = champ("prenom");
   if (!prenom) { formulaire.elements.prenom.focus(); return; }
-  const lignes = [
-    `Bonjour Rolaine,`,
-    ``,
-    `Mon projet : ${champ("projet")}`,
-    champ("date") && `La date souhaitée : ${champ("date")}`,
-    champ("personnes") && `Le nombre de personnes : ${champ("personnes")}`,
-    ``,
-    champ("message"),
-    ``,
-    prenom,
-  ].filter((ligne) => ligne !== false && ligne !== undefined);
-  const sujet = `Demande spéciale Lumâ : ${champ("projet").toLowerCase()}`;
-  window.location.href = `mailto:atelier.mouvement.luma@gmail.com?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(lignes.join("\n"))}`;
+  if (!champ("email") || !formulaire.elements.email.checkValidity()) {
+    etat.textContent = "Ton e-mail, pour que je puisse te répondre.";
+    formulaire.elements.email.focus();
+    return;
+  }
+  const bouton = formulaire.querySelector('button[type="submit"]');
+  bouton.disabled = true;
+  etat.textContent = "Envoi en cours…";
+  try {
+    const reponse = await fetch("/demande", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(formulaire))),
+    });
+    if (!reponse.ok) throw new Error(String(reponse.status));
+    formulaire.reset();
+    etat.textContent = `Merci ${prenom} ! Ta demande est bien arrivée : je te réponds très vite.`;
+  } catch (erreur) {
+    etat.innerHTML = 'Le message n\'a pas pu partir : écris-moi à <a href="mailto:atelier.mouvement.luma@gmail.com">atelier.mouvement.luma@gmail.com</a> ou sur Instagram, je te réponds très vite.';
+  } finally {
+    bouton.disabled = false;
+  }
 });

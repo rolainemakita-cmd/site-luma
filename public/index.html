@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
   <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -96,7 +96,7 @@
             <tr><td>La séance de 1 h 30 <small>celle que je conseille</small></td><td>85 €</td></tr>
             <tr><td>4 séances <small>d'une heure, ou de 1 h 30</small></td><td>220 € <span>ou</span> 310 €</td></tr>
           </table>
-          <a href="mailto:atelier.mouvement.luma@gmail.com?subject=Mon%20coaching%20Lum%C3%A2" class="bouton bouton-clair">Réserver mon coaching</a>
+          <a href="#demande" class="bouton bouton-clair" data-projet="Le coaching, seule">Réserver mon coaching</a>
         </article>
         <article class="formule revele">
           <h3>Entre amies</h3>
@@ -106,7 +106,7 @@
             <tr><td>La séance de 1 h 30, par personne</td><td>50 €</td></tr>
             <tr><td>4 séances, par personne <small>d'une heure, ou de 1 h 30</small></td><td>130 € <span>ou</span> 180 €</td></tr>
           </table>
-          <a href="mailto:atelier.mouvement.luma@gmail.com?subject=Lum%C3%A2%20entre%20amies" class="bouton bouton-clair">Réserver entre amies</a>
+          <a href="#demande" class="bouton bouton-clair" data-projet="Lumâ entre amies">Réserver entre amies</a>
         </article>
       </div>
       <p class="petit revele">La location du studio est en plus, à votre charge, partagée entre vous. Les séances ont lieu dans un studio à Paris, communiqué à la réservation.</p>
@@ -158,18 +158,25 @@
     </div>
   </section>
 
-  <!-- 7. LA DEMANDE SPÉCIALE (devis) -->
+  <!-- 7. RÉSERVER, OU LA DEMANDE SPÉCIALE : le formulaire envoie la demande dans la boîte de Lumâ -->
   <section class="section papier papier-bordeaux" id="demande">
     <div class="conteneur demande">
       <div>
-        <p class="rubrique revele">La demande spéciale</p>
-        <h2 class="revele">Un événement, <em>un projet ?</em></h2>
-        <p class="chapo revele">Un anniversaire, un enterrement de vie de jeune fille, une équipe en entreprise, un partenariat : je te prépare une proposition sur mesure, sur devis.</p>
+        <p class="rubrique revele">Réserver</p>
+        <h2 class="revele">Ta séance, <em>ton projet.</em></h2>
+        <p class="chapo revele">Le coaching, seule ou entre amies, Le Dimanche Lumâ, ou un moment sur mesure : un anniversaire, un enterrement de vie de jeune fille, une équipe en entreprise, un partenariat. Dis-moi ce qui te ferait plaisir, je te réponds très vite.</p>
       </div>
       <form class="formulaire revele" id="formulaire-devis" novalidate>
         <label>Ton prénom<input name="prenom" autocomplete="given-name" required></label>
-        <label>Ton projet
+        <div class="formulaire-ligne">
+          <label>Ton e-mail<input name="email" type="email" autocomplete="email" required></label>
+          <label>Ton téléphone <small>(si tu veux)</small><input name="telephone" type="tel" autocomplete="tel"></label>
+        </div>
+        <label>Ce qui te ferait plaisir
           <select name="projet">
+            <option>Le coaching, seule</option>
+            <option>Lumâ entre amies</option>
+            <option>Le Dimanche Lumâ</option>
             <option>Un événement privé</option>
             <option>Une entreprise</option>
             <option>Un partenariat</option>
@@ -177,12 +184,14 @@
           </select>
         </label>
         <div class="formulaire-ligne">
-          <label>La date souhaitée<input name="date" placeholder="ex. samedi 6 mars"></label>
-          <label>Combien de personnes<input name="personnes" inputmode="numeric" placeholder="ex. 8"></label>
+          <label>Tes disponibilités<input name="date" placeholder="ex. le dimanche après-midi"></label>
+          <label>Combien de personnes<input name="personnes" inputmode="numeric" placeholder="ex. 1"></label>
         </div>
-        <label>Ton message<textarea name="message" rows="4" placeholder="Raconte-moi ton idée"></textarea></label>
+        <label>Ton message<textarea name="message" rows="4" placeholder="Raconte-moi ton envie"></textarea></label>
+        <label class="piege" aria-hidden="true">Laisse ce champ vide<input name="site" tabindex="-1" autocomplete="off"></label>
         <button type="submit" class="bouton bouton-clair">Envoyer ma demande</button>
-        <p class="petit">Ta demande s'ouvre dans ta messagerie, prête à partir. Tu peux aussi m'écrire sur <a href="https://www.instagram.com/mouvement.luma/" target="_blank" rel="noopener">Instagram</a>.</p>
+        <p class="formulaire-etat" role="status" aria-live="polite"></p>
+        <p class="petit">Tes informations servent seulement à te répondre (<a href="mentions-legales.html">mentions légales</a>). Tu peux aussi m'écrire sur <a href="https://www.instagram.com/mouvement.luma/" target="_blank" rel="noopener">Instagram</a>.</p>
       </form>
     </div>
   </section>
@@ -226,6 +235,6 @@
 </footer>
 
 <a href="#parcours" class="barre-mobile">Choisir mon parcours</a>
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>
