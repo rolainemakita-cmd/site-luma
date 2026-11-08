@@ -1,14 +1,13 @@
 // Configuration Cloudflare Workers.
-// SITE EN PAUSE depuis le 01/10/2026 (remaniement du modèle économique) : seule la page d'attente
-// du dossier attente/ est en ligne. Le site complet reste dans public/ (aperçu local : serveur « site-luma »).
-// Pour le remettre en ligne : remplacer « ./attente » par « ./public » ci-dessous, puis commit et push.
-// src/worker.js traite la page d'accueil (redirection vers https://lumamouvement.com)
+// Le site complet (dossier public/) est de nouveau en ligne depuis le 08/11/2026, pour le retour de Lumâ.
+// Pour remettre la page d'attente : remplacer « ./public » par « ./attente » ci-dessous, puis commit et push.
+// src/worker.js traite les pages (redirection vers https://lumamouvement.com)
 // et les adresses /video/... (vidéos envoyées par morceaux, indispensable sur iPhone).
 {
   "name": "site-luma",
   "main": "src/worker.js",
   "compatibility_date": "2026-09-01",
-  "assets": { "directory": "./attente", "binding": "ASSETS", "run_worker_first": ["/", "/index.html"] },
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/", "/index.html", "/mentions-legales", "/mentions-legales.html"] },
   "routes": [
     { "pattern": "lumamouvement.com", "custom_domain": true },
     { "pattern": "www.lumamouvement.com", "custom_domain": true }

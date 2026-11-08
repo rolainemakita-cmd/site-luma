@@ -1,246 +1,270 @@
-/* Couleurs, chacune avec un rôle :
-   crème = respiration et clarté (fond principal)
-   bordeaux = désir et passage à l'action (boutons et réservation uniquement)
-   poudre = douceur et réassurance (formules, essentiels)
-   quasi-noir = élégance et contraste (texte, avis) */
+/* Lumâ : la lettre de l'Instagram (papier bordeaux ou crème, Archivo et Cormorant), en site. */
 :root {
-  --creme: #FBF7F4;
-  --creme-fonce: #F3ECE7;
-  --poudre: #F2E3DD;
-  --bordeaux: #6E2E3A;
-  --bordeaux-fonce: #57232D;
-  --noir: #1C1517;
-  --texte: #2A2224;
-  --doux: #6D6063;
-  --trait: rgba(42, 34, 36, .12);
-  --titre: "Archivo", system-ui, -apple-system, sans-serif;
-  --corps: "Archivo", system-ui, -apple-system, sans-serif;
-  --rayon: 14px;
-  --courbe: cubic-bezier(.22, .61, .36, 1);
+  --bordeaux: #6A2431;
+  --bordeaux-fonce: #4E1823;
+  --creme: #ECE4DA;
+  --creme-clair: #F6EEE6;
+  --encre: #231918;
+  --brun: #4A3530;
+  --ocre: #D6A75C;
+  --vin: #7A2633;
+  --conteneur: 1120px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--creme); color: var(--texte); font-family: var(--corps); font-stretch: 100%; font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-img, video { display: block; width: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  font-family: "Archivo", system-ui, sans-serif; font-size: 17px; line-height: 1.6;
+  color: var(--encre); background: var(--creme);
+  -webkit-font-smoothing: antialiased;
+}
+img, video { display: block; max-width: 100%; }
 a { color: inherit; }
+.conteneur { width: min(var(--conteneur), 100% - 40px); margin-inline: auto; }
 
-.conteneur { width: min(1200px, 100% - 48px); margin-inline: auto; }
-.section { padding: clamp(80px, 10vw, 128px) 0; }
-.section-poudre { background: var(--poudre); }
-.section-creme { background: var(--creme-fonce); }
-.section-sombre { background: var(--noir); color: var(--creme); }
+/* Le papier : un grain de film, un pli discret au milieu, un léger voile sur les bords */
+.papier { position: relative; isolation: isolate; }
+.papier::before, .papier::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.papier::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4  0 0 0 0 .28  0 0 0 0 .22  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23g)'/%3E%3C/svg%3E");
+  opacity: .16;
+}
+.papier::after { background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(10, 0, 3, .16)); }
+.papier-bordeaux { background-color: var(--bordeaux); color: var(--creme-clair); }
+.papier-creme { background-color: var(--creme); color: var(--encre); }
+.papier-creme::after { background: radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(90, 58, 46, .10)); }
 
-h1, h2, h3 { font-family: var(--titre); font-stretch: 78%; font-weight: 800; letter-spacing: -.005em; line-height: .95; text-transform: uppercase; }
-h1 { font-size: clamp(46px, 6.6vw, 100px); }
-h2 { font-size: clamp(36px, 4.4vw, 62px); margin-bottom: 22px; }
-h3 { font-size: clamp(22px, 2vw, 27px); letter-spacing: .005em; }
-.etiquette { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--bordeaux); margin-bottom: 16px; }
-.section-sombre .etiquette { color: var(--poudre); }
-.chapo { font-size: 19px; color: var(--doux); max-width: 540px; margin-bottom: 30px; }
+/* Les titres : Archivo franc, le mot fort en italique (ocre sur bordeaux, bordeaux sur crème) */
+h1, h2, h3 { font-weight: 600; letter-spacing: -.025em; line-height: 1.05; text-wrap: balance; }
+h1 { font-size: clamp(2.7rem, 7vw, 4.8rem); }
+h2 { font-size: clamp(2.1rem, 4.6vw, 3.3rem); margin-bottom: 1.4rem; }
+h1 em, h2 em, .devise em {
+  font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500;
+  font-size: 1.28em; letter-spacing: -.01em; line-height: .9;
+}
+.papier-bordeaux h1 em, .papier-bordeaux h2 em, .papier-bordeaux .devise em { color: var(--ocre); }
+.papier-creme h1 em, .papier-creme h2 em { color: var(--vin); }
+.rubrique {
+  font-size: .74rem; font-weight: 500; letter-spacing: .26em; text-transform: uppercase;
+  padding-bottom: .8rem; margin-bottom: 1.8rem; border-bottom: 1px solid currentColor; border-bottom-color: rgba(246, 238, 230, .3);
+}
+.papier-creme .rubrique { color: var(--brun); border-bottom-color: rgba(74, 53, 48, .28); }
+.chapo { font-size: clamp(1.08rem, 2vw, 1.25rem); line-height: 1.55; max-width: 36rem; }
+.petit { font-size: .88rem; opacity: .8; margin-top: 1.4rem; }
 
-/* Boutons : le bordeaux est réservé à l'action */
-.bouton { display: inline-flex; align-items: center; justify-content: center; padding: 18px 28px; border-radius: 3px; background: var(--bordeaux); color: #fff; font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; border: 1.5px solid var(--bordeaux); transition: background .25s, transform .25s var(--courbe); }
-.bouton:hover { background: var(--bordeaux-fonce); transform: translateY(-2px); }
-.bouton-petit { padding: 12px 18px; font-size: 12px; }
-.bouton-clair { background: #fff; color: var(--bordeaux); border-color: #fff; }
-.bouton-clair:hover { background: var(--poudre); }
-.bouton-contour { background: transparent; color: var(--bordeaux); }
-.bouton-contour:hover { background: var(--bordeaux); color: #fff; }
-.bouton-contour-clair { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .6); }
-.bouton-contour-clair:hover { background: rgba(255, 255, 255, .12); }
-.boutons { display: flex; flex-wrap: wrap; gap: 12px; }
+/* Les boutons */
+.boutons { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+.bouton {
+  display: inline-block; padding: .95rem 1.5rem; border-radius: 2px; font-weight: 600; font-size: .95rem;
+  text-decoration: none; text-align: center; border: 1.5px solid transparent; cursor: pointer;
+  background: var(--bordeaux); color: var(--creme-clair); transition: transform .2s, background .2s;
+}
+.bouton:hover { transform: translateY(-2px); }
+.papier-bordeaux .bouton, .bouton-clair { background: var(--creme-clair); color: var(--bordeaux); }
+.bouton-contour, .papier-bordeaux .bouton-contour { background: transparent; color: inherit; border-color: currentColor; }
+.bouton-petit { padding: .6rem 1.1rem; font-size: .88rem; }
 
-/* Bandeau d'annonce */
-.annonce { position: fixed; inset: 0 0 auto 0; z-index: 31; height: 36px; line-height: 36px; display: block; padding: 0 16px; background: var(--bordeaux); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* L'en-tête */
+.entete { position: sticky; top: 0; z-index: 20; background: rgba(78, 24, 35, .94); backdrop-filter: blur(8px); color: var(--creme-clair); }
+.entete-ligne { display: flex; align-items: center; gap: 1.5rem; height: 68px; }
+.logo { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: 1.9rem; text-decoration: none; letter-spacing: .01em; }
+.logo-a { position: relative; display: inline-block; }
+.logo-a svg { position: absolute; left: 50%; top: .17em; width: .29em; height: .11em; transform: translateX(-48%); overflow: visible; }
+.logo-a path { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.menu { display: flex; gap: 1.6rem; margin-left: auto; font-size: .9rem; }
+.menu a { text-decoration: none; opacity: .88; }
+.menu a:hover { opacity: 1; text-decoration: underline; text-underline-offset: .3em; }
+.entete-cta { background: var(--creme-clair); color: var(--bordeaux); }
+.burger { display: none; background: none; border: 0; width: 40px; height: 40px; cursor: pointer; margin-left: auto; }
+.burger span { display: block; width: 24px; height: 2px; background: var(--creme-clair); margin: 6px auto; transition: transform .25s; }
+.burger[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+.burger[aria-expanded="true"] span:last-child { transform: translateY(-4px) rotate(-45deg); }
 
-/* En-tête */
-.entete { position: fixed; inset: 36px 0 auto 0; z-index: 30; transition: background .35s, box-shadow .35s; color: #fff; }
-.entete.pleine { background: rgba(251, 247, 244, .96); color: var(--texte); box-shadow: 0 1px 0 var(--trait); }
-.entete-ligne { display: flex; align-items: center; gap: 32px; padding: 18px 0; }
-.logo { font-family: "Cormorant Garamond", Georgia, serif; font-size: 26px; font-weight: 600; letter-spacing: .26em; line-height: 1; text-decoration: none; display: inline-flex; flex-direction: column; margin-right: auto; }
-.logo small { font-family: var(--corps); font-size: 9px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; margin-top: 5px; opacity: .8; }
-.menu { display: flex; gap: 28px; font-size: 15px; font-weight: 500; }
-.menu a { text-decoration: none; opacity: .9; }
-.menu a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 6px; }
-.entete:not(.pleine) .entete-cta { background: #fff; color: var(--bordeaux); border-color: #fff; }
-.burger { display: none; width: 42px; height: 42px; border: 0; background: none; position: relative; cursor: pointer; color: inherit; }
-.burger span { position: absolute; left: 9px; right: 9px; height: 2px; background: currentColor; transition: transform .3s, top .3s; }
-.burger span:first-child { top: 15px; } .burger span:last-child { top: 25px; }
-.burger[aria-expanded="true"] span:first-child { top: 20px; transform: rotate(45deg); }
-.burger[aria-expanded="true"] span:last-child { top: 20px; transform: rotate(-45deg); }
+/* 1. L'accueil : la lettre à gauche, ta vidéo fondue dans le bordeaux à droite */
+.accueil { --marge: clamp(3rem, 8vw, 6rem); padding: var(--marge) 0; overflow: hidden; min-height: min(calc(100vh - 68px), 900px); display: flex; align-items: center; }
+.accueil-texte { position: relative; z-index: 1; }
+.accueil-grille { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.accueil .chapo { margin-top: 1.6rem; }
+/* L'ambiance : la vidéo nette, à sa place, prolongée de chaque côté par son reflet en miroir, puis floutée
+   (une petite toile que le script peint à chaque image). Au bord de la vidéo nette, l'ambiance a donc les mêmes
+   couleurs : le fondu ne laisse aucune arête. Par-dessus, la vidéo nette occupe toute la hauteur et s'y fond
+   (fondus en douceur, horizontal sur la figure, vertical sur le bloc intérieur) ; puis un seul voile bordeaux
+   couvre les deux : il garde le texte lisible et laisse ta vidéo claire. */
+.accueil-ambiance {
+  position: absolute; top: 0; bottom: 0; right: 0; width: 82%; z-index: -2; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .26) 10%, rgba(0, 0, 0, .74) 20%, #000 30%);
+  mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .26) 10%, rgba(0, 0, 0, .74) 20%, #000 30%);
+}
+.accueil-ambiance canvas {
+  position: absolute; top: 0; left: -64px; width: calc(100% + 128px); height: 100%; filter: blur(32px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .26) 5%, rgba(0, 0, 0, .74) 11%, #000 16%, #000 84%, rgba(0, 0, 0, .74) 89%, rgba(0, 0, 0, .26) 95%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .26) 5%, rgba(0, 0, 0, .74) 11%, #000 16%, #000 84%, rgba(0, 0, 0, .74) 89%, rgba(0, 0, 0, .26) 95%, transparent);
+}
+.accueil-reel {
+  position: absolute; top: 0; bottom: 0; right: 32%; transform: translateX(50%); aspect-ratio: 9 / 16; max-width: 50%;
+  -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .07) 6%, rgba(0, 0, 0, .26) 12%, rgba(0, 0, 0, .5) 17.5%, rgba(0, 0, 0, .74) 23%, rgba(0, 0, 0, .93) 29%, #000 35%, #000 65%, rgba(0, 0, 0, .93) 71%, rgba(0, 0, 0, .74) 77%, rgba(0, 0, 0, .5) 82.5%, rgba(0, 0, 0, .26) 88%, rgba(0, 0, 0, .07) 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .07) 6%, rgba(0, 0, 0, .26) 12%, rgba(0, 0, 0, .5) 17.5%, rgba(0, 0, 0, .74) 23%, rgba(0, 0, 0, .93) 29%, #000 35%, #000 65%, rgba(0, 0, 0, .93) 71%, rgba(0, 0, 0, .74) 77%, rgba(0, 0, 0, .5) 82.5%, rgba(0, 0, 0, .26) 88%, rgba(0, 0, 0, .07) 94%, transparent);
+}
+.accueil-fondu {
+  position: relative; height: 100%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .07) 2.3%, rgba(0, 0, 0, .26) 4.7%, rgba(0, 0, 0, .5) 7%, rgba(0, 0, 0, .74) 9.3%, rgba(0, 0, 0, .93) 11.7%, #000 14%, #000 82%, rgba(0, 0, 0, .93) 85%, rgba(0, 0, 0, .74) 88%, rgba(0, 0, 0, .5) 91%, rgba(0, 0, 0, .26) 94%, rgba(0, 0, 0, .07) 97%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .07) 2.3%, rgba(0, 0, 0, .26) 4.7%, rgba(0, 0, 0, .5) 7%, rgba(0, 0, 0, .74) 9.3%, rgba(0, 0, 0, .93) 11.7%, #000 14%, #000 82%, rgba(0, 0, 0, .93) 85%, rgba(0, 0, 0, .74) 88%, rgba(0, 0, 0, .5) 91%, rgba(0, 0, 0, .26) 94%, rgba(0, 0, 0, .07) 97%, transparent);
+}
+.accueil-reel video { width: 100%; height: 100%; object-fit: cover; }
+.accueil-voile, .accueil-voile::before, .accueil-voile::after { position: absolute; inset: 0; pointer-events: none; }
+.accueil-voile::before, .accueil-voile::after { content: ""; }
+.accueil-voile::before { mix-blend-mode: multiply; background: linear-gradient(to right, rgba(106, 36, 49, .3), rgba(106, 36, 49, .3) 50%, rgba(106, 36, 49, .2) 58%, rgba(106, 36, 49, .1) 64%, rgba(106, 36, 49, .06) 72%, rgba(106, 36, 49, .08) 84%, rgba(106, 36, 49, .2) 93%, rgba(106, 36, 49, .3)); }
+.accueil-voile::after { background: linear-gradient(to right, rgba(106, 36, 49, .7), rgba(106, 36, 49, .62) 44%, rgba(106, 36, 49, .46) 51%, rgba(106, 36, 49, .24) 57%, rgba(106, 36, 49, .1) 62%, rgba(106, 36, 49, .04) 67%, rgba(106, 36, 49, .03) 82%, rgba(106, 36, 49, .1) 92%, rgba(106, 36, 49, .2)); }
 
-/* Accueil */
-.accueil { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: #fff; overflow: hidden; }
-.accueil-video { position: absolute; inset: 0; height: 100%; object-fit: cover; }
-/* Vidéo impossible à lancer : l'image d'accueil bouge doucement à la place */
-.accueil-fixe .accueil-video { animation: accueil-respire 10s ease-in-out infinite alternate; transform-origin: 60% 40%; }
-@keyframes accueil-respire { to { transform: scale(1.12); } }
-.accueil-voile { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28,21,23,.55) 0%, rgba(28,21,23,.2) 30%, rgba(28,21,23,.55) 60%, rgba(28,21,23,.88) 100%); }
-.accueil-contenu { position: relative; z-index: 2; padding: 140px 0 64px; }
-.accueil-lieu { font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; opacity: .85; margin-bottom: 18px; }
-.accueil h1 { max-width: 900px; margin-bottom: 22px; }
-.accueil-texte { font-size: clamp(18px, 1.6vw, 21px); max-width: 560px; opacity: .92; margin-bottom: 32px; }
-.accueil-avis { margin-top: 46px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .22); max-width: 560px; }
-.accueil-avis blockquote { font-size: 17px; font-style: italic; opacity: .92; }
-.accueil-avis figcaption { font-size: 14px; opacity: .7; margin-top: 6px; }
+/* Le son : petite pilule au contour crème, en bas à droite de la bannière, au-dessus de la vidéo */
+.son {
+  position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vw, 36px); z-index: 3;
+  display: inline-flex; align-items: center; gap: .5rem; padding: .55rem 1.05rem .55rem .8rem;
+  font: 600 .85rem/1 "Archivo", system-ui, sans-serif; color: var(--creme-clair); cursor: pointer;
+  background: rgba(78, 24, 35, .35); border: 1.5px solid rgba(246, 238, 230, .85); border-radius: 999px;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transition: background .2s, transform .2s;
+}
+.son:hover { background: rgba(78, 24, 35, .6); transform: translateY(-1px); }
+.son:focus-visible { outline: 2px solid var(--ocre); outline-offset: 3px; }
+.son svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.son .son-coupe, .son[aria-pressed="true"] .son-ondes { display: none; }
+.son[aria-pressed="true"] .son-coupe { display: inline; }
 
-/* Les essentiels */
-.essentiels { background: var(--poudre); }
-.essentiels-grille { display: grid; grid-template-columns: repeat(4, 1fr); }
-.essentiels-grille div { padding: 28px 22px; }
-.essentiels-grille div + div { border-left: 1px solid rgba(110, 46, 58, .18); }
-.essentiels strong { display: block; font-stretch: 85%; font-size: 21px; font-weight: 700; letter-spacing: -.01em; }
-.essentiels span { font-size: 15px; color: var(--doux); }
+/* Les sections */
+.section { padding: clamp(4rem, 9vw, 7rem) 0; }
 
-/* La séance */
-.seance { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 6vw, 88px); align-items: center; }
-.seance-video { position: relative; aspect-ratio: 4 / 5; border-radius: var(--rayon); overflow: hidden; background: var(--noir); }
-.etapes { list-style: none; }
-.etapes li { display: grid; grid-template-columns: 44px 150px 1fr; gap: 10px; align-items: baseline; padding: 15px 0; border-top: 1px solid var(--trait); }
-.etapes li:last-child { border-bottom: 1px solid var(--trait); }
-.etapes span { font-size: 14px; font-weight: 600; color: var(--bordeaux); }
-.etapes strong { font-stretch: 85%; font-size: 21px; font-weight: 700; }
-.etapes em { font-style: normal; color: var(--doux); }
+/* 2. Les parcours */
+.parcours { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+.parcours article { background: rgba(246, 238, 230, .65); border: 1px solid rgba(74, 53, 48, .18); padding: 2rem 1.5rem 2.2rem; }
+.parcours h3 { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 2.3rem; color: var(--vin); letter-spacing: -.01em; margin-bottom: .9rem; }
+.parcours p { font-weight: 500; }
+.parcours-seance { margin-top: 2.2rem; font-size: 1.1rem; max-width: 44rem; }
 
-/* Formules */
-.formules { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; }
-.formule { background: #fff; border-radius: var(--rayon); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px -36px rgba(110, 46, 58, .45); }
-.formule-media { aspect-ratio: 16 / 10; overflow: hidden; }
-.formule-media video, .formule-media img { height: 100%; object-fit: cover; transition: transform 1.2s var(--courbe); }
-.formule:hover .formule-media video, .formule:hover .formule-media img { transform: scale(1.04); }
-.formule-corps { padding: 30px 30px 34px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
-.formule-prix { font-stretch: 85%; font-size: 28px; font-weight: 700; color: var(--bordeaux); }
-.formule-prix small { font-stretch: 100%; font-size: 15px; font-weight: 400; color: var(--doux); }
-.formule ul { list-style: none; margin-bottom: 10px; flex: 1; }
-.formule li { padding: 9px 0 9px 26px; position: relative; color: var(--doux); border-top: 1px solid var(--trait); }
-.formule li::before { content: ""; position: absolute; left: 2px; top: 17px; width: 10px; height: 10px; border-radius: 50%; background: var(--poudre); border: 2px solid var(--bordeaux); }
-.formule .bouton { align-self: flex-start; }
-.tarifs { margin-top: 28px; background: #fff; border-radius: var(--rayon); padding: 6px 28px; }
-.tarifs summary { cursor: pointer; list-style: none; padding: 18px 0; font-weight: 600; color: var(--bordeaux); display: flex; justify-content: space-between; }
-.tarifs summary::-webkit-details-marker { display: none; }
-.tarifs summary::after { content: "+"; font-size: 22px; line-height: 1; transition: transform .3s; }
-.tarifs[open] summary::after { transform: rotate(45deg); }
-.tarifs-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 8px 0 12px; }
-.tarifs table { width: 100%; border-collapse: collapse; }
-.tarifs caption { text-align: left; font-weight: 700; font-stretch: 85%; font-size: 19px; padding-bottom: 8px; }
-.tarifs td { padding: 11px 0; border-top: 1px solid var(--trait); vertical-align: top; font-size: 16px; }
-.tarifs td:last-child { text-align: right; font-weight: 600; white-space: nowrap; padding-left: 16px; }
-.tarifs small { display: block; font-size: 14px; color: var(--doux); }
-.petit { font-size: 14px; color: var(--doux); padding-bottom: 20px; }
+/* 3. Les formules */
+.formules { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1rem; }
+.formule { border: 1px solid rgba(246, 238, 230, .28); background: rgba(246, 238, 230, .05); padding: 2rem; display: flex; flex-direction: column; }
+.formule h3 { font-size: 1.6rem; }
+.formule-pour { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; opacity: .78; margin: .5rem 0 1.4rem; }
+.formule table { width: 100%; border-collapse: collapse; margin-bottom: 1.8rem; }
+.formule td { padding: .8rem 0; border-bottom: 1px solid rgba(246, 238, 230, .2); vertical-align: baseline; }
+.formule td:last-child { text-align: right; font-weight: 600; white-space: nowrap; padding-left: 1rem; }
+.formule td span { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; opacity: .8; }
+.formule small { display: block; font-size: .8rem; opacity: .7; }
+.formule .bouton { margin-top: auto; align-self: flex-start; }
 
-/* Comment ça marche */
-.trois-etapes { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 14px; }
-.trois-etapes li { background: var(--creme-fonce); border-radius: var(--rayon); padding: 30px; }
-.trois-etapes span { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bordeaux); color: #fff; font-weight: 700; margin-bottom: 22px; }
-.trois-etapes h3 { margin-bottom: 8px; }
-.trois-etapes p { color: var(--doux); }
+/* 4. Le Dimanche Lumâ */
+.dimanche { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.faits { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 1.6rem; }
+.faits li { border-top: 2px solid var(--vin); padding-top: .8rem; }
+.faits strong { display: block; font-size: 1.35rem; }
+.faits span { font-size: .85rem; color: var(--brun); }
+.dimanche .bouton { margin-top: 1.4rem; }
+.dimanche-photo img, .rolaine-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; box-shadow: 0 18px 40px rgba(60, 30, 20, .25); }
 
-/* Prochaines séances */
-.entete-section { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 36px; }
-.entete-section h2 { margin-bottom: 0; }
-.entete-section-texte { max-width: 420px; opacity: .8; }
-.creneaux { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.creneau { background: #251C1F; border: 1px solid rgba(251, 247, 244, .1); border-radius: 6px; padding: 28px; display: flex; flex-direction: column; gap: 6px; transition: transform .35s var(--courbe), border-color .35s; }
-.creneau:hover { transform: translateY(-4px); border-color: rgba(242, 227, 221, .35); }
-.creneau-type { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--poudre); margin-bottom: 8px; }
-.creneau h3 { font-size: 30px; }
-.creneau-heure { font-weight: 600; font-size: 18px; margin-top: 6px; }
-.creneau-detail { opacity: .7; font-size: 15px; }
-.creneau-bas { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(251, 247, 244, .12); }
-.creneau-coach { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; opacity: .85; }
-.creneau-coach img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; }
+/* 5. Qui je suis */
+.rolaine { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.rolaine p + p { margin-top: 1rem; }
+.devise { margin-top: 2rem !important; font-size: 1.3rem; font-weight: 600; letter-spacing: -.01em; }
 
-/* Ta première séance */
-.premiere { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(36px, 6vw, 88px); align-items: start; }
-.conseils { list-style: none; }
-.conseils li { padding: 24px 0; border-top: 1px solid var(--trait); }
-.conseils li:last-child { border-bottom: 1px solid var(--trait); }
-.conseils h3 { margin-bottom: 8px; color: var(--bordeaux); }
-.conseils p { color: var(--doux); max-width: 560px; }
+/* 6. Elles en parlent */
+.avis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.avis blockquote { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 1.55rem; line-height: 1.3; color: var(--vin); }
+.avis figcaption { margin-top: 1rem; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--brun); }
 
-/* Avis */
-.avis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 14px; }
-.avis figure { background: #fff; border-radius: 6px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; box-shadow: 0 24px 50px -36px rgba(110, 46, 58, .45); }
-.avis blockquote { font-stretch: 90%; font-size: 22px; font-weight: 500; line-height: 1.35; }
-.avis figcaption { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--bordeaux); }
+/* 7. La demande spéciale */
+.demande { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.formulaire { display: grid; gap: 1rem; background: rgba(246, 238, 230, .06); border: 1px solid rgba(246, 238, 230, .28); padding: 1.8rem; }
+.formulaire label { display: grid; gap: .4rem; font-size: .85rem; font-weight: 500; letter-spacing: .02em; }
+.formulaire input, .formulaire select, .formulaire textarea {
+  font: inherit; font-size: 1rem; color: var(--encre); background: var(--creme-clair);
+  border: 1px solid transparent; border-radius: 2px; padding: .75rem .9rem; width: 100%;
+}
+.formulaire input:focus, .formulaire select:focus, .formulaire textarea:focus { outline: 2px solid var(--ocre); outline-offset: 1px; }
+.formulaire-ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.formulaire .bouton { justify-self: start; }
+.formulaire .petit { margin-top: 0; }
 
-/* Qui je suis */
-.rolaine { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(36px, 6vw, 88px); align-items: center; }
-.rolaine img { aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--rayon); }
-.rolaine p:not(.etiquette) { color: var(--doux); margin-bottom: 16px; max-width: 580px; }
-.devise { font-family: "Cormorant Garamond", Georgia, serif; font-size: 26px; font-weight: 600; line-height: 1.3; color: var(--bordeaux) !important; margin-top: 24px; }
-
-/* Questions */
-.questions { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(36px, 6vw, 88px); align-items: start; }
-.faq details { border-top: 1px solid var(--trait); padding: 20px 0; }
-.faq details:last-child { border-bottom: 1px solid var(--trait); }
-.faq summary { cursor: pointer; list-style: none; font-stretch: 88%; font-size: 21px; font-weight: 700; display: flex; justify-content: space-between; gap: 20px; }
+/* 8. Questions */
+.questions { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 5vw, 4rem); }
+.faq details { border-bottom: 1px solid rgba(74, 53, 48, .25); padding: 1.2rem 0; }
+.faq summary { cursor: pointer; font-weight: 600; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; color: var(--bordeaux); font-size: 24px; line-height: 1; transition: transform .3s; }
-.faq details[open] summary::after { transform: rotate(45deg); }
-.faq p { color: var(--doux); padding-top: 10px; max-width: 580px; }
+.faq summary::after { content: "+"; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.6rem; line-height: 1; color: var(--vin); }
+.faq details[open] summary::after { content: "−"; }
+.faq p { margin-top: .7rem; color: var(--brun); }
 
-/* Réserver */
-.reserver { position: relative; overflow: hidden; background: var(--bordeaux); color: #fff; padding: clamp(90px, 11vw, 140px) 0; }
-.reserver-fond { position: absolute; left: 50%; bottom: -.18em; transform: translateX(-50%); font-family: var(--titre); font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: clamp(160px, 34vw, 520px); line-height: 1; letter-spacing: -.02em; color: rgba(255, 255, 255, .06); white-space: nowrap; pointer-events: none; user-select: none; }
-.reserver-contenu { position: relative; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.reserver .etiquette { color: var(--poudre); }
-.reserver h2 { font-size: clamp(48px, 7vw, 100px); }
-.reserver-contenu > p:not(.etiquette) { font-size: 19px; max-width: 560px; opacity: .92; margin-bottom: 32px; }
-.reserver .boutons { justify-content: center; }
-.reserver-infos { margin-top: 30px; font-size: 15px !important; opacity: .8 !important; }
+/* 9. Contact et pied de page */
+.contact { padding: clamp(4rem, 9vw, 6.5rem) 0; text-align: center; }
+.contact .rubrique { max-width: 34rem; margin-inline: auto; }
+.contact .boutons { justify-content: center; }
+.pied { background: var(--bordeaux-fonce); color: rgba(246, 238, 230, .8); font-size: .85rem; padding: 1.6rem 0 5.5rem; }
+.pied-ligne { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 
-/* Pied de page */
-.pied { background: var(--noir); color: var(--poudre); padding: 24px 0 90px; font-size: 14px; }
-.pied-ligne { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+/* Les mentions légales */
+.retour { margin-left: auto; }
+.legal { max-width: 46rem; }
+.legal h1 { font-size: clamp(2.3rem, 5.5vw, 3.6rem); margin-bottom: 2.4rem; }
+.legal h3 { font-size: 1.2rem; letter-spacing: -.01em; margin: 2.2rem 0 .6rem; }
+.legal p { color: var(--brun); }
+.legal p + p { margin-top: .5rem; }
 
-/* Barre de réservation mobile */
+/* Le bouton toujours visible sur téléphone */
 .barre-mobile { display: none; }
 
-/* Apparition douce */
-.revele { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--courbe), transform .9s var(--courbe); }
-.revele.vu { opacity: 1; transform: none; }
+/* L'apparition au défilement (seulement si le script tourne) */
+.js .revele { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+.js .revele.vu { opacity: 1; transform: none; }
 
-/* Tablette */
-@media (max-width: 980px) {
-  .menu { display: none; }
-  .burger { display: block; }
-  .entete-cta { display: none; }
-  .menu.ouvert { display: flex; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 18px; padding: 24px; background: var(--creme); color: var(--texte); box-shadow: 0 10px 30px -20px rgba(0,0,0,.4); }
-  .essentiels-grille { grid-template-columns: 1fr 1fr; }
-  .essentiels-grille div:nth-child(3) { border-left: 0; }
-  .essentiels-grille div:nth-child(n+3) { border-top: 1px solid rgba(110, 46, 58, .18); }
-  .seance, .rolaine, .questions, .formules, .avis, .trois-etapes, .tarifs-grille, .creneaux, .premiere { grid-template-columns: 1fr; }
-  .seance-video { aspect-ratio: 4 / 3; }
-  .rolaine img { max-width: 440px; }
+/* Écran moyen : la vidéo nette se cale à droite, pour laisser de la place au texte */
+@media (max-width: 1100px) {
+  .accueil-reel {
+    right: 0; transform: none;
+    -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .07) 7.5%, rgba(0, 0, 0, .26) 15%, rgba(0, 0, 0, .5) 22.5%, rgba(0, 0, 0, .74) 30%, rgba(0, 0, 0, .93) 37.5%, #000 45%);
+    mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .07) 7.5%, rgba(0, 0, 0, .26) 15%, rgba(0, 0, 0, .5) 22.5%, rgba(0, 0, 0, .74) 30%, rgba(0, 0, 0, .93) 37.5%, #000 45%);
+  }
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-  body { font-size: 17px; }
-  .etapes li { grid-template-columns: 34px 1fr; row-gap: 2px; }
-  .etapes em { grid-column: 2; }
-  .barre-mobile { display: block; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40; padding: 16px; border-radius: 999px; background: var(--bordeaux); color: #fff; text-align: center; font-weight: 600; text-decoration: none; box-shadow: 0 12px 30px -10px rgba(110, 46, 58, .6); transform: translateY(140%); transition: transform .4s var(--courbe); }
-  .barre-mobile.visible { transform: none; }
-  .boutons .bouton { width: 100%; }
+/* Tablette */
+@media (max-width: 960px) {
+  .parcours { grid-template-columns: 1fr 1fr; }
+  .avis { grid-template-columns: 1fr; }
+  .questions, .demande { grid-template-columns: 1fr; }
+}
+
+/* Téléphone */
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .menu {
+    display: none; position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; gap: 0;
+    background: var(--bordeaux-fonce); padding: .5rem 20px 1.2rem;
+  }
+  .menu.ouvert { display: flex; }
+  .menu a { padding: .8rem 0; border-bottom: 1px solid rgba(246, 238, 230, .15); }
+  .burger { display: block; }
+  .entete-cta { display: none; }
+  .accueil-grille, .dimanche, .rolaine, .formules { grid-template-columns: 1fr; }
+  .accueil { display: block; min-height: 0; }
+  .accueil-ambiance, .accueil-voile { display: none; }
+  .accueil-reel {
+    position: relative; inset: auto; max-width: none; justify-self: center;
+    width: min(100% + 40px, 460px); margin: .5rem -20px calc(-1 * var(--marge));
+    -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .26) 4.7%, rgba(0, 0, 0, .74) 9.3%, #000 14%, #000 86%, rgba(0, 0, 0, .74) 90.7%, rgba(0, 0, 0, .26) 95.3%, transparent);
+    mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .26) 4.7%, rgba(0, 0, 0, .74) 9.3%, #000 14%, #000 86%, rgba(0, 0, 0, .74) 90.7%, rgba(0, 0, 0, .26) 95.3%, transparent);
+  }
+  .accueil-fondu::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; background: linear-gradient(to bottom, rgba(106, 36, 49, .4), rgba(106, 36, 49, 0) 40%); }
+  .parcours { grid-template-columns: 1fr; }
+  .faits { grid-template-columns: 1fr 1fr 1fr; gap: .6rem; }
+  .faits strong { font-size: 1.1rem; }
+  .formulaire-ligne { grid-template-columns: 1fr; }
+  .rolaine-photo { max-width: 360px; }
+  .barre-mobile {
+    display: block; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 30;
+    background: var(--creme-clair); color: var(--bordeaux); text-align: center; font-weight: 600;
+    padding: .95rem; border-radius: 2px; text-decoration: none; box-shadow: 0 8px 24px rgba(10, 0, 3, .35);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .revele { opacity: 1; transform: none; transition: none; }
-  .accueil-fixe .accueil-video { animation: none; }
+  .js .revele { opacity: 1; transform: none; transition: none; }
 }
-
-@media (max-width: 600px) { .annonce { font-size: 10px; letter-spacing: .06em; } .annonce-plus { display: none; } }
-
-/* Vidéo des cours collectifs : lumière bleue réchauffée vers le rose de la palette */
-
-/* Photo des coachings : cadrée sur le visage */
-
-/* Solo violet de la séance : couleurs ramenées vers le rose poudré et le bordeaux du site */
-.seance-video video { position: absolute; inset: 0; height: 100%; object-fit: cover; }
-
-/* Photo de la séance (ancrage) : un peu éclaircie */
-.seance-photo { background: var(--creme-fonce); }
-.seance-photo img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: 55% 60%; filter: brightness(1.14) contrast(1.06); }
