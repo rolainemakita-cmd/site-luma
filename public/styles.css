@@ -80,8 +80,9 @@ h1 em, h2 em, .devise em {
 .burger[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
 .burger[aria-expanded="true"] span:last-child { transform: translateY(-4px) rotate(-45deg); }
 
-/* 1. L'accueil : la lettre à gauche, ta vidéo fondue dans le bordeaux à droite */
-.accueil { --marge: clamp(3rem, 8vw, 6rem); padding: var(--marge) 0; overflow: hidden; min-height: min(calc(100vh - 68px), 900px); display: flex; align-items: center; }
+/* 1. L'accueil : la lettre à gauche, ta vidéo fondue dans le bordeaux à droite.
+   Elle passe au-dessus des sections suivantes (sous l'en-tête) : son bouton du son, fixé à l'écran pendant la visite, y reste visible. */
+.accueil { --marge: clamp(3rem, 8vw, 6rem); padding: var(--marge) 0; overflow: hidden; min-height: min(calc(100vh - 68px), 900px); display: flex; align-items: center; z-index: 1; }
 .accueil-texte { position: relative; z-index: 1; }
 .accueil-grille { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .accueil .chapo { margin-top: 1.6rem; }
@@ -129,6 +130,8 @@ h1 em, h2 em, .devise em {
 .son svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .son .son-coupe, .son[aria-pressed="true"] .son-ondes { display: none; }
 .son[aria-pressed="true"] .son-coupe { display: inline; }
+/* Hors de la bannière, tant que la musique joue : le bouton reste à l'écran, sur un fond plus franc pour se lire partout */
+.son.flottant { position: fixed; z-index: 25; background: rgba(78, 24, 35, .9); }
 
 /* Les sections */
 .section { padding: clamp(4rem, 9vw, 7rem) 0; }
@@ -262,6 +265,7 @@ h1 em, h2 em, .devise em {
     background: var(--creme-clair); color: var(--bordeaux); text-align: center; font-weight: 600;
     padding: .95rem; border-radius: 2px; text-decoration: none; box-shadow: 0 8px 24px rgba(10, 0, 3, .35);
   }
+  .son.flottant { bottom: 78px; }  /* au-dessus de la barre « Choisir mon parcours » */
 }
 
 @media (prefers-reduced-motion: reduce) {

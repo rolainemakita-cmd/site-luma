@@ -22,14 +22,18 @@ document.querySelectorAll(".revele").forEach((el) => observateur.observe(el));
 
 // La vidéo de la bannière : lecture seulement quand la bannière est visible ;
 // nouvel essai après un toucher (en mode économie d'énergie, l'iPhone refuse la lecture automatique :
-// l'image d'accueil reste alors affichée).
+// l'image d'accueil reste alors affichée). Si la musique joue, la vidéo reprend au bon moment de la boucle.
 const banniere = document.querySelector(".accueil");
 const videos = () => [...banniere.querySelectorAll("video")].filter((v) => v.offsetParent !== null);
 let videoVisible = true;
-const lancer = () => videos().forEach((v) => v.play().catch(() => {}));
+const lancer = () => videos().forEach((v) => {
+  if (source && v.readyState >= 1) v.currentTime = phase();
+  v.play().catch(() => {});
+});
 new IntersectionObserver(([e]) => {
   videoVisible = e.isIntersecting;
   if (videoVisible) lancer(); else banniere.querySelectorAll("video").forEach((v) => v.pause());
+  afficherSon();
 }, { threshold: 0.05 }).observe(banniere);
 const relancer = () => { if (videoVisible && !document.hidden && videos().some((v) => v.paused)) lancer(); };
 ["touchend", "click"].forEach((type) => document.addEventListener(type, relancer, { passive: true }));
@@ -76,13 +80,29 @@ if (nette.requestVideoFrameCallback) {
   requestAnimationFrame(boucle);
 }
 
-// La musique de la bannière (« Smooth Rnb Beat », Tunetank) : chargée seulement au premier clic sur « Le son ».
-// La boucle de 4 mesures tourne dans l'AudioContext, sans couture ; à chaque tour, les vidéos repartent de 0
+// La musique (« Smooth Rnb Beat », Tunetank) accompagne toute la visite, dès l'arrivée sur le site.
+// Les navigateurs ne laissent sortir le son qu'après un premier geste (un clic, un toucher, une touche ;
+// pas le défilement) : on essaie dès le chargement, sinon elle part au premier geste, n'importe où sur la page.
+// La boucle de 4 mesures tourne dans l'AudioContext, sans couture ; à chaque tour, la vidéo repart de 0
 // au moment où le début de la boucle sort des haut-parleurs : les coupes de la vidéo tombent sur les temps.
+// « Couper le son » l'arrête pour la visite (retenu le temps de la session) ; page cachée : pause, puis reprise.
 const boutonSon = banniere.querySelector(".son");
 const texteSon = boutonSon.querySelector(".son-texte");
 let contexte = null, tampon = null, source = null, volume = null, minuterie = null, t0 = 0;
-const sonActif = () => boutonSon.getAttribute("aria-pressed") === "true";
+const memoire = (valeur) => {
+  try {
+    if (valeur) sessionStorage.setItem("luma-son", valeur);
+    return sessionStorage.getItem("luma-son");
+  } catch (e) { return null; }
+};
+let voulue = memoire() !== "coupe";  // la musique joue, sauf si la visiteuse l'a coupée
+
+// Le bouton : « Couper le son » quand la musique joue ; hors de la bannière, il reste alors à l'écran
+const afficherSon = () => {
+  boutonSon.setAttribute("aria-pressed", String(!!source));
+  texteSon.textContent = source ? "Couper le son" : "Le son";
+  boutonSon.classList.toggle("flottant", !!source && !videoVisible);
+};
 
 // Heure (au sens de performance.now) à laquelle un instant de l'AudioContext sort des haut-parleurs
 const heureSortie = (instant) => {
@@ -90,23 +110,20 @@ const heureSortie = (instant) => {
   if (repere.performanceTime) return repere.performanceTime + (instant - repere.contextTime) * 1000;
   return performance.now() + (instant - contexte.currentTime + (contexte.outputLatency || contexte.baseLatency || 0)) * 1000;
 };
+// Où en est la boucle, en secondes, à cet instant
+const phase = () => {
+  const ecoule = (performance.now() - heureSortie(t0)) / 1000;
+  return ((ecoule % tampon.duration) + tampon.duration) % tampon.duration;
+};
 const caler = (tour) => {
   minuterie = setTimeout(() => {
-    videos().forEach((v) => { v.currentTime = 0; v.play().catch(() => {}); });
+    if (videoVisible) videos().forEach((v) => { v.currentTime = 0; v.play().catch(() => {}); });
     caler(tour + 1);
   }, Math.max(0, heureSortie(t0 + tour * tampon.duration) - performance.now()));
 };
 
-const lancerSon = async () => {
-  boutonSon.setAttribute("aria-pressed", "true");
-  texteSon.textContent = "Couper le son";
-  if (!contexte) {
-    if (navigator.audioSession) navigator.audioSession.type = "playback";  // iPhone : le son passe même en mode silencieux
-    contexte = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  await contexte.resume();
-  if (!tampon) tampon = await contexte.decodeAudioData(await (await fetch("media/musique-accueil.wav")).arrayBuffer());
-  if (!sonActif() || source) return;  // coupé pendant le chargement, ou déjà lancé
+const jouer = () => {
+  if (!voulue || source || !tampon || !contexte || contexte.state !== "running" || document.hidden) return;
   volume = contexte.createGain();
   volume.connect(contexte.destination);
   source = contexte.createBufferSource();
@@ -118,26 +135,50 @@ const lancerSon = async () => {
   volume.gain.setValueAtTime(0, t0);
   volume.gain.linearRampToValueAtTime(1, t0 + 0.4);  // montée douce
   source.start(t0);
+  afficherSon();
   caler(0);
 };
 
-const couperSon = () => {
-  boutonSon.setAttribute("aria-pressed", "false");
-  texteSon.textContent = "Le son";
-  clearTimeout(minuterie);
-  if (!source) return;
-  const maintenant = contexte.currentTime, gain = volume.gain;
-  if (gain.cancelAndHoldAtTime) gain.cancelAndHoldAtTime(maintenant);
-  else { gain.cancelScheduledValues(maintenant); gain.setValueAtTime(gain.value, maintenant); }
-  gain.linearRampToValueAtTime(0, maintenant + 0.3);  // fondu de sortie
-  source.stop(maintenant + 0.32);
-  source = null;
+// Prépare la musique (une seule fois), puis réveille l'AudioContext. resume() part tout de suite :
+// sur iPhone, il doit être appelé pendant le geste, avant toute attente.
+const demarrer = () => {
+  if (!contexte) {
+    if (navigator.audioSession) navigator.audioSession.type = "playback";  // iPhone : le son passe même en mode silencieux
+    contexte = new (window.AudioContext || window.webkitAudioContext)();
+    contexte.addEventListener("statechange", jouer);
+    fetch("media/musique-accueil.wav").then((reponse) => reponse.arrayBuffer())
+      .then((donnees) => contexte.decodeAudioData(donnees))
+      .then((musique) => { tampon = musique; jouer(); })
+      .catch(() => {});
+  }
+  contexte.resume().then(jouer, () => {});
 };
 
-boutonSon.addEventListener("click", () => { if (sonActif()) couperSon(); else lancerSon().catch(couperSon); });
-// La musique s'arrête quand la bannière sort de l'écran ou que la page passe à l'arrière-plan
-new IntersectionObserver(([e]) => { if (!e.isIntersecting && sonActif()) couperSon(); }, { threshold: 0.05 }).observe(banniere);
-document.addEventListener("visibilitychange", () => { if (document.hidden && sonActif()) couperSon(); });
+const arreter = () => {
+  clearTimeout(minuterie);
+  if (source) {
+    const maintenant = contexte.currentTime, gain = volume.gain;
+    if (gain.cancelAndHoldAtTime) gain.cancelAndHoldAtTime(maintenant);
+    else { gain.cancelScheduledValues(maintenant); gain.setValueAtTime(gain.value, maintenant); }
+    gain.linearRampToValueAtTime(0, maintenant + 0.3);  // fondu de sortie
+    source.stop(maintenant + 0.32);
+    source = null;
+  }
+  afficherSon();
+};
+
+boutonSon.addEventListener("click", () => {
+  voulue = !source;
+  memoire(voulue ? "joue" : "coupe");
+  if (voulue) demarrer(); else arreter();
+});
+// Au premier geste, n'importe où sauf sur le bouton (il décide lui-même), la musique part si elle n'a pas été coupée
+["pointerup", "touchend", "click", "keydown"].forEach((type) => document.addEventListener(type, (evenement) => {
+  if (voulue && !source && !boutonSon.contains(evenement.target)) demarrer();
+}, { capture: true, passive: true }));
+// Page cachée : la musique s'arrête ; de retour, elle reprend, sauf si la visiteuse l'a coupée
+document.addEventListener("visibilitychange", () => { if (document.hidden) arreter(); else if (voulue) demarrer(); });
+addEventListener("load", () => { if (voulue) demarrer(); });
 
 // La demande spéciale : le formulaire prépare un mail, prêt à partir depuis la messagerie de la personne.
 const formulaire = document.getElementById("formulaire-devis");
