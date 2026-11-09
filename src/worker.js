@@ -40,6 +40,7 @@ async function demande(requete, env) {
     `E-mail : ${email}`,
     si("telephone", "Téléphone", 40),
     `Envie : ${projet}`,
+    si("parcours", "Parcours", 40),
     si("date", "Disponibilités", 200),
     si("personnes", "Nombre de personnes", 20),
     "",

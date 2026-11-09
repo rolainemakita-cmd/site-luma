@@ -155,9 +155,9 @@ h1 em, h2 em, .devise em {
 .formule table { width: 100%; border-collapse: collapse; margin-bottom: 1.8rem; }
 .formule td { padding: .8rem 0; border-bottom: 1px solid rgba(246, 238, 230, .2); vertical-align: baseline; }
 .formule td:last-child { text-align: right; font-weight: 600; white-space: nowrap; padding-left: 1rem; }
-.formule td span { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; opacity: .8; }
 .formule small { display: block; font-size: .8rem; opacity: .7; }
 .formule .bouton { margin-top: auto; align-self: flex-start; }
+.formules-note { margin-top: 1.6rem; max-width: 46rem; }
 
 /* 4. Le Dimanche Lumâ */
 .dimanche { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
