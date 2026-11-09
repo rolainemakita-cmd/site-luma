@@ -88,6 +88,14 @@ if (nette.requestVideoFrameCallback) {
 // « Couper le son » l'arrête pour la visite (retenu le temps de la session) ; page cachée : pause, puis reprise.
 const boutonSon = banniere.querySelector(".son");
 const texteSon = boutonSon.querySelector(".son-texte");
+// Sur téléphone, le bouton du son se range dans l'en-tête : la barre « Réserver ma séance » reste le seul bouton flottant.
+const telephone = matchMedia("(max-width: 760px)");
+const rangerSon = () => { if (telephone.matches) burger.before(boutonSon); else banniere.append(boutonSon); };
+telephone.addEventListener("change", rangerSon);
+rangerSon();
+// La boucle dure 349 091 échantillons à 32 kHz. Dans le fichier AAC, elle est encadrée d'une demi-seconde de sa propre fin
+// et de son propre début : la lecture ne tourne que sur la boucle exacte, à l'écart des deux bouts du fichier, où l'AAC ajoute un silence.
+const DEBUT_BOUCLE = 0.5, DUREE_BOUCLE = 349091 / 32000;
 let contexte = null, tampon = null, source = null, volume = null, minuterie = null, t0 = 0;
 const memoire = (valeur) => {
   try {
@@ -113,13 +121,13 @@ const heureSortie = (instant) => {
 // Où en est la boucle, en secondes, à cet instant
 const phase = () => {
   const ecoule = (performance.now() - heureSortie(t0)) / 1000;
-  return ((ecoule % tampon.duration) + tampon.duration) % tampon.duration;
+  return ((ecoule % DUREE_BOUCLE) + DUREE_BOUCLE) % DUREE_BOUCLE;
 };
 const caler = (tour) => {
   minuterie = setTimeout(() => {
     if (videoVisible) videos().forEach((v) => { v.currentTime = 0; v.play().catch(() => {}); });
     caler(tour + 1);
-  }, Math.max(0, heureSortie(t0 + tour * tampon.duration) - performance.now()));
+  }, Math.max(0, heureSortie(t0 + tour * DUREE_BOUCLE) - performance.now()));
 };
 
 const jouer = () => {
@@ -129,12 +137,14 @@ const jouer = () => {
   source = contexte.createBufferSource();
   source.buffer = tampon;
   source.loop = true;
+  source.loopStart = DEBUT_BOUCLE;
+  source.loopEnd = DEBUT_BOUCLE + DUREE_BOUCLE;
   source.connect(volume);
   t0 = contexte.currentTime + 0.15;
   volume.gain.setValueAtTime(0, contexte.currentTime);
   volume.gain.setValueAtTime(0, t0);
   volume.gain.linearRampToValueAtTime(1, t0 + 0.4);  // montée douce
-  source.start(t0);
+  source.start(t0, DEBUT_BOUCLE);
   afficherSon();
   caler(0);
 };
@@ -146,7 +156,7 @@ const demarrer = () => {
     if (navigator.audioSession) navigator.audioSession.type = "playback";  // iPhone : le son passe même en mode silencieux
     contexte = new (window.AudioContext || window.webkitAudioContext)();
     contexte.addEventListener("statechange", jouer);
-    fetch("media/musique-accueil.wav").then((reponse) => reponse.arrayBuffer())
+    fetch("media/musique-accueil.m4a").then((reponse) => reponse.arrayBuffer())
       .then((donnees) => contexte.decodeAudioData(donnees))
       .then((musique) => { tampon = musique; jouer(); })
       .catch(() => {});
@@ -184,6 +194,9 @@ addEventListener("load", () => { if (voulue) demarrer(); });
 // Les boutons « Réserver » des formules y mènent, avec la bonne formule déjà choisie.
 const formulaire = document.getElementById("formulaire-devis");
 const etat = formulaire.querySelector(".formulaire-etat");
+// La barre « Réserver ma séance » s'efface quand le formulaire est à l'écran : « Envoyer ma demande » reste bien visible.
+const barre = document.querySelector(".barre-mobile");
+new IntersectionObserver(([e]) => barre.classList.toggle("effacee", e.isIntersecting)).observe(formulaire);
 document.querySelectorAll("[data-projet]").forEach((lien) => lien.addEventListener("click", () => {
   formulaire.elements.projet.value = lien.dataset.projet;
   setTimeout(() => formulaire.elements.prenom.focus({ preventScroll: true }), 600);

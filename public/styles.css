@@ -254,18 +254,34 @@ h1 em, h2 em, .devise em {
   }
   .menu.ouvert { display: flex; }
   .menu a { padding: .8rem 0; border-bottom: 1px solid rgba(246, 238, 230, .15); }
-  .burger { display: block; }
+  .burger { display: block; margin-left: 0; }
+  .entete-ligne { gap: .7rem; }
   .entete-cta { display: none; }
+  /* Le bouton du son, rangé dans l'en-tête par le script : la barre « Réserver ma séance » reste le seul bouton flottant */
+  .son, .son.flottant { position: static; margin-left: auto; padding: .45rem .8rem .45rem .6rem; font-size: .78rem; background: transparent; }
   .accueil-grille, .dimanche, .rolaine, .formules { grid-template-columns: 1fr; }
-  .accueil { display: block; min-height: 0; }
+  /* L'accueil : la vidéo d'abord, sur toute la hauteur visible sous l'en-tête, le titre posé dessus ; le texte et les boutons juste après */
+  .accueil { display: block; min-height: 0; padding: 0 0 var(--marge); }
   .accueil-ambiance, .accueil-voile { display: none; }
+  .accueil-grille { width: 100%; gap: 0; grid-template-rows: 1fr auto auto; }
+  .accueil-texte { display: contents; }
   .accueil-reel {
-    position: relative; inset: auto; max-width: none; justify-self: center;
-    width: min(100% + 40px, 460px); margin: .5rem -20px calc(-1 * var(--marge));
-    -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .26) 4.7%, rgba(0, 0, 0, .74) 9.3%, #000 14%, #000 86%, rgba(0, 0, 0, .74) 90.7%, rgba(0, 0, 0, .26) 95.3%, transparent);
-    mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, .26) 4.7%, rgba(0, 0, 0, .74) 9.3%, #000 14%, #000 86%, rgba(0, 0, 0, .74) 90.7%, rgba(0, 0, 0, .26) 95.3%, transparent);
+    grid-area: 1 / 1 / 4 / 2; position: relative; inset: auto; transform: none; width: 100%; max-width: none; aspect-ratio: auto;
+    height: min(calc(100vh - 68px), 177.78vw); height: min(calc(100svh - 68px), 177.78vw);
+    -webkit-mask-image: none; mask-image: none;
   }
-  .accueil-fondu::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; background: linear-gradient(to bottom, rgba(106, 36, 49, .4), rgba(106, 36, 49, 0) 40%); }
+  .accueil-fondu {
+    -webkit-mask-image: linear-gradient(to bottom, #000 58%, rgba(0, 0, 0, .74) 74%, rgba(0, 0, 0, .26) 90%, transparent);
+    mask-image: linear-gradient(to bottom, #000 58%, rgba(0, 0, 0, .74) 74%, rgba(0, 0, 0, .26) 90%, transparent);
+  }
+  .accueil-fondu::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(106, 36, 49, .85), rgba(106, 36, 49, .5) 26%, rgba(106, 36, 49, 0) 46%); }
+  .accueil-reel video { object-position: 50% 15%; }
+  .accueil .rubrique, .accueil h1 { position: relative; z-index: 1; margin-inline: 20px; }
+  .accueil .rubrique { grid-area: 2 / 1; margin-bottom: .6rem; padding-bottom: 0; border-bottom: 0; }
+  .accueil h1 { grid-area: 3 / 1; margin-bottom: 5.2rem; }  /* au-dessus de la barre « Réserver ma séance » */
+  .accueil .chapo, .accueil .boutons { margin-inline: 20px; }
+  .accueil .chapo { grid-area: 4 / 1; margin-top: 0; }
+  .accueil .boutons { grid-area: 5 / 1; }
   .parcours { grid-template-columns: 1fr; }
   .faits { grid-template-columns: 1fr 1fr 1fr; gap: .6rem; }
   .faits strong { font-size: 1.1rem; }
@@ -275,8 +291,9 @@ h1 em, h2 em, .devise em {
     display: block; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 30;
     background: var(--creme-clair); color: var(--bordeaux); text-align: center; font-weight: 600;
     padding: .95rem; border-radius: 2px; text-decoration: none; box-shadow: 0 8px 24px rgba(10, 0, 3, .35);
+    transition: opacity .25s, transform .25s;
   }
-  .son.flottant { bottom: 78px; }  /* au-dessus de la barre « Choisir mon parcours » */
+  .barre-mobile.effacee { opacity: 0; transform: translateY(1rem); pointer-events: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
