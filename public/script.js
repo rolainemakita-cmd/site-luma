@@ -86,6 +86,7 @@ if (nette.requestVideoFrameCallback) {
 // La boucle de 4 mesures tourne dans l'AudioContext, sans couture ; à chaque tour, la vidéo repart de 0
 // au moment où le début de la boucle sort des haut-parleurs : les coupes de la vidéo tombent sur les temps.
 // « Couper le son » l'arrête pour la visite (retenu le temps de la session) ; page cachée : pause, puis reprise.
+// Quand le formulaire est à l'écran, elle baisse doucement, puis remonte quand la visiteuse en sort.
 const boutonSon = banniere.querySelector(".son");
 const texteSon = boutonSon.querySelector(".son-texte");
 // Sur téléphone, le bouton du son se range dans l'en-tête : la barre « Réserver ma séance » reste le seul bouton flottant.
@@ -96,7 +97,7 @@ rangerSon();
 // La boucle dure 349 091 échantillons à 32 kHz. Dans le fichier AAC, elle est encadrée d'une demi-seconde de sa propre fin
 // et de son propre début : la lecture ne tourne que sur la boucle exacte, à l'écart des deux bouts du fichier, où l'AAC ajoute un silence.
 const DEBUT_BOUCLE = 0.5, DUREE_BOUCLE = 349091 / 32000;
-let contexte = null, tampon = null, source = null, volume = null, minuterie = null, t0 = 0;
+let contexte = null, tampon = null, source = null, volume = null, minuterie = null, t0 = 0, formulaireVu = false;
 const memoire = (valeur) => {
   try {
     if (valeur) sessionStorage.setItem("luma-son", valeur);
@@ -130,6 +131,16 @@ const caler = (tour) => {
   }, Math.max(0, heureSortie(t0 + tour * DUREE_BOUCLE) - performance.now()));
 };
 
+// Le volume voulu, et le passage en douceur vers un autre volume
+const niveau = () => (formulaireVu ? 0.3 : 1);
+const fondu = (cible, duree) => {
+  const maintenant = contexte.currentTime, gain = volume.gain;
+  if (gain.cancelAndHoldAtTime) gain.cancelAndHoldAtTime(maintenant);
+  else { gain.cancelScheduledValues(maintenant); gain.setValueAtTime(gain.value, maintenant); }
+  gain.linearRampToValueAtTime(cible, maintenant + duree);
+  return maintenant;
+};
+
 const jouer = () => {
   if (!voulue || source || !tampon || !contexte || contexte.state !== "running" || document.hidden) return;
   volume = contexte.createGain();
@@ -143,7 +154,7 @@ const jouer = () => {
   t0 = contexte.currentTime + 0.15;
   volume.gain.setValueAtTime(0, contexte.currentTime);
   volume.gain.setValueAtTime(0, t0);
-  volume.gain.linearRampToValueAtTime(1, t0 + 0.4);  // montée douce
+  volume.gain.linearRampToValueAtTime(niveau(), t0 + 0.4);  // montée douce
   source.start(t0, DEBUT_BOUCLE);
   afficherSon();
   caler(0);
@@ -167,11 +178,7 @@ const demarrer = () => {
 const arreter = () => {
   clearTimeout(minuterie);
   if (source) {
-    const maintenant = contexte.currentTime, gain = volume.gain;
-    if (gain.cancelAndHoldAtTime) gain.cancelAndHoldAtTime(maintenant);
-    else { gain.cancelScheduledValues(maintenant); gain.setValueAtTime(gain.value, maintenant); }
-    gain.linearRampToValueAtTime(0, maintenant + 0.3);  // fondu de sortie
-    source.stop(maintenant + 0.32);
+    source.stop(fondu(0, 0.3) + 0.32);  // fondu de sortie
     source = null;
   }
   afficherSon();
@@ -194,9 +201,13 @@ addEventListener("load", () => { if (voulue) demarrer(); });
 // Les boutons « Réserver » des formules y mènent, avec la bonne formule déjà choisie.
 const formulaire = document.getElementById("formulaire-devis");
 const etat = formulaire.querySelector(".formulaire-etat");
-// La barre « Réserver ma séance » s'efface quand le formulaire est à l'écran : « Envoyer ma demande » reste bien visible.
+// Quand le formulaire est à l'écran, la barre « Réserver ma séance » s'efface (« Envoyer ma demande » reste bien visible) et la musique baisse.
 const barre = document.querySelector(".barre-mobile");
-new IntersectionObserver(([e]) => barre.classList.toggle("effacee", e.isIntersecting)).observe(formulaire);
+new IntersectionObserver(([e]) => {
+  barre.classList.toggle("effacee", e.isIntersecting);
+  formulaireVu = e.isIntersecting;
+  if (source) fondu(niveau(), 0.8);
+}).observe(formulaire);
 document.querySelectorAll("[data-projet]").forEach((lien) => lien.addEventListener("click", () => {
   formulaire.elements.projet.value = lien.dataset.projet;
   setTimeout(() => formulaire.elements.prenom.focus({ preventScroll: true }), 600);
