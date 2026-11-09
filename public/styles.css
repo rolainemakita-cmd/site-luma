@@ -140,20 +140,20 @@ h1 em, h2 em, .devise em {
 /* Les sections */
 .section { padding: clamp(4rem, 9vw, 7rem) 0; }
 
-/* 2. Les parcours */
+/* 3. Les parcours, sur le papier bordeaux */
 .parcours { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
-.parcours article { background: rgba(246, 238, 230, .65); border: 1px solid rgba(74, 53, 48, .18); padding: 2rem 1.5rem 2.2rem; }
-.parcours h3 { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 2.3rem; color: var(--vin); letter-spacing: -.01em; margin-bottom: .9rem; }
+.parcours article { background: rgba(246, 238, 230, .05); border: 1px solid rgba(246, 238, 230, .28); padding: 2rem 1.5rem 2.2rem; }
+.parcours h3 { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 2.3rem; color: var(--ocre); letter-spacing: -.01em; margin-bottom: .9rem; }
 .parcours p { font-weight: 500; }
 .parcours-seance { margin-top: 2.2rem; font-size: 1.1rem; max-width: 44rem; }
 
-/* 3. Les formules */
+/* 4. Les formules, sur le papier crème */
 .formules { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1rem; }
-.formule { border: 1px solid rgba(246, 238, 230, .28); background: rgba(246, 238, 230, .05); padding: 2rem; display: flex; flex-direction: column; }
+.formule { border: 1px solid rgba(74, 53, 48, .18); background: rgba(246, 238, 230, .65); padding: 2rem; display: flex; flex-direction: column; }
 .formule h3 { font-size: 1.6rem; }
 .formule-pour { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; opacity: .78; margin: .5rem 0 1.4rem; }
 .formule table { width: 100%; border-collapse: collapse; margin-bottom: 1.8rem; }
-.formule td { padding: .8rem 0; border-bottom: 1px solid rgba(246, 238, 230, .2); vertical-align: baseline; }
+.formule td { padding: .8rem 0; border-bottom: 1px solid rgba(74, 53, 48, .18); vertical-align: baseline; }
 .formule td:last-child { text-align: right; font-weight: 600; white-space: nowrap; padding-left: 1rem; }
 .formule small { display: block; font-size: .8rem; opacity: .7; }
 /* Entre amies : le prix du groupe, puis par personne */
@@ -164,7 +164,7 @@ h1 em, h2 em, .devise em {
 .formule .bouton { margin-top: auto; align-self: flex-start; }
 .formules-note { margin-top: 1.6rem; max-width: 46rem; }
 
-/* 4. Le Dimanche Lumâ */
+/* 2. Le Dimanche Lumâ */
 .dimanche { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .faits { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 1.6rem; }
 .faits li { border-top: 2px solid var(--vin); padding-top: .8rem; }
