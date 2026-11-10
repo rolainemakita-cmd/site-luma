@@ -51,6 +51,7 @@ h1 em, h2 em, .devise em {
 .papier-creme .rubrique { color: var(--brun); border-bottom-color: rgba(74, 53, 48, .28); }
 .chapo { font-size: clamp(1.08rem, 2vw, 1.25rem); line-height: 1.55; max-width: 36rem; }
 .petit { font-size: .88rem; opacity: .8; margin-top: 1.4rem; }
+.insecable { white-space: nowrap; }
 
 /* Les boutons */
 .boutons { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
@@ -140,14 +141,14 @@ h1 em, h2 em, .devise em {
 /* Les sections */
 .section { padding: clamp(4rem, 9vw, 7rem) 0; }
 
-/* 3. Les parcours, sur le papier bordeaux */
-.parcours { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+/* 3. Le coaching : les parcours, sur le papier bordeaux */
+.parcours { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.2rem; }
 .parcours article { background: rgba(246, 238, 230, .05); border: 1px solid rgba(246, 238, 230, .28); padding: 2rem 1.5rem 2.2rem; }
 .parcours h3 { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 2.3rem; color: var(--ocre); letter-spacing: -.01em; margin-bottom: .9rem; }
 .parcours p { font-weight: 500; }
 .parcours-seance { margin-top: 2.2rem; font-size: 1.1rem; max-width: 44rem; }
 
-/* 4. Les formules, sur le papier crème */
+/* 4. Le coaching : les formules, sur le papier crème */
 .formules { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1rem; }
 .formule { border: 1px solid rgba(74, 53, 48, .18); background: rgba(246, 238, 230, .65); padding: 2rem; display: flex; flex-direction: column; }
 .formule h3 { font-size: 1.6rem; }
@@ -187,6 +188,7 @@ h1 em, h2 em, .devise em {
 .demande { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
 .formulaire { display: grid; gap: 1rem; background: rgba(246, 238, 230, .06); border: 1px solid rgba(246, 238, 230, .28); padding: 1.8rem; }
 .formulaire label { display: grid; gap: .4rem; font-size: .85rem; font-weight: 500; letter-spacing: .02em; }
+.formulaire label[hidden] { display: none; }
 .formulaire input, .formulaire select, .formulaire textarea {
   font: inherit; font-size: 1rem; color: var(--encre); background: var(--creme-clair);
   border: 1px solid transparent; border-radius: 2px; padding: .75rem .9rem; width: 100%;

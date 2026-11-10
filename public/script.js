@@ -208,8 +208,18 @@ new IntersectionObserver(([e]) => {
   formulaireVu = e.isIntersecting;
   if (source) fondu(niveau(), 0.8);
 }).observe(formulaire);
+// Le parcours se choisit pour le coaching, seule ou entre amies : le champ n'apparaît que pour lui.
+const parcours = formulaire.elements.parcours;
+const montrerParcours = () => {
+  const coaching = formulaire.elements.projet.value.startsWith("Le coaching");
+  parcours.closest("label").hidden = !coaching;
+  parcours.disabled = !coaching;
+};
+formulaire.elements.projet.addEventListener("change", montrerParcours);
+montrerParcours();
 document.querySelectorAll("[data-projet]").forEach((lien) => lien.addEventListener("click", () => {
   formulaire.elements.projet.value = lien.dataset.projet;
+  montrerParcours();
   setTimeout(() => formulaire.elements.prenom.focus({ preventScroll: true }), 600);
 }));
 formulaire.addEventListener("submit", async (evenement) => {
@@ -233,6 +243,7 @@ formulaire.addEventListener("submit", async (evenement) => {
     });
     if (!reponse.ok) throw new Error(String(reponse.status));
     formulaire.reset();
+    montrerParcours();
     etat.textContent = `Merci ${prenom} ! Ta demande est bien arrivée : je te réponds très vite.`;
   } catch (erreur) {
     etat.innerHTML = 'Le message n\'a pas pu partir : écris-moi à <a href="mailto:atelier.mouvement.luma@gmail.com">atelier.mouvement.luma@gmail.com</a> ou sur Instagram, je te réponds très vite.';
