@@ -167,7 +167,7 @@ h1 em, h2 em, .devise em {
 
 /* 2. Le Dimanche Lumâ */
 .dimanche { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-.faits { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 1.6rem; }
+.faits { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 2rem 0 1.6rem; }
 .faits li { border-top: 2px solid var(--vin); padding-top: .8rem; }
 .faits strong { display: block; font-size: 1.35rem; }
 .faits span { font-size: .85rem; color: var(--brun); }
@@ -290,7 +290,7 @@ h1 em, h2 em, .devise em {
   .accueil .chapo { grid-area: 4 / 1; margin-top: 0; }
   .accueil .boutons { grid-area: 5 / 1; }
   .parcours { grid-template-columns: 1fr; }
-  .faits { grid-template-columns: 1fr 1fr 1fr; gap: .6rem; }
+  .faits { grid-template-columns: 1fr 1fr; gap: .6rem; }
   .faits strong { font-size: 1.1rem; }
   .formulaire-ligne { grid-template-columns: 1fr; }
   .rolaine-photo { max-width: 360px; }
